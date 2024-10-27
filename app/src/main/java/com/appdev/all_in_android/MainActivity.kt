@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.appdev.all_in_android.ui.components.general.AllInTopBar
+import com.appdev.all_in_android.ui.navigation.NavigationSetup
 import com.appdev.all_in_android.ui.theme.AllinandroidTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,6 +26,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
                 }
+            }
+            androidx.compose.material3.MaterialTheme {
+                NavigationSetup()
             }
         }
     }

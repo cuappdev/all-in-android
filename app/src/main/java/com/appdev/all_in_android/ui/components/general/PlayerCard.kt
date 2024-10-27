@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -47,10 +48,16 @@ fun PlayerCard(
 ) {
 
     OutlinedCard(
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White,
+        ),
+        shape = RoundedCornerShape(16.dp),
         modifier = Modifier
             .width(181.dp)
             .height(222.dp),
-        border = BorderStroke(width = 1.dp, color = Color(0xFF606060))
+        border = BorderStroke(width = 1.dp, color = Color(0xFFDED9D9)),
+
+
     )
     {
         Column(

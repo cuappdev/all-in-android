@@ -56,7 +56,6 @@ fun NavigationSetup() {
 fun BottomNavigationBar(navController: NavHostController, tabItems: List<NavigationItem>) {
     NavigationBar(
         containerColor = Color.White,
-        contentColor = Color.Blue
     ) {
         val currentRoute = currentRoute(navController)
         tabItems.forEach { item ->

@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -47,52 +49,39 @@ fun MarketplaceScreen(contracts : List<Contract>) {
         Column(
             modifier = Modifier
                 .padding(padding)
-                .background(color = Color(0xffE6E6E6))
+                .background(color = Color(0xffF5F7F8))
         ){
             Column(modifier = Modifier
-                .padding(16.dp)
-                .fillMaxSize()
-
-            ){
+                .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp)
+            ) {
                 SearchBar(
                     searchQuery,
                     { searchQuery = it }
                 )
+            }
+            Column(
+            ){
                 FilterRow()
+            }
 
-                LazyColumn{
-                    //contractsPaired is the contracts into rows of two contracts
-                    val contractsPaired = contracts.chunked(2)
-                    items(contractsPaired.size){rowItems ->
-                        //rowItems represents index of each row, it and it2 index the first and second item in each row
-                        val it = 2 * rowItems
-                        val it2 = it + 1
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
-                        ){
-                            PlayerCard(contracts[it].playerImageId,
-                                contracts[it].playerName,
-                                contracts[it].dateOfGame,
-                                contracts[it].actionQuantity,
-                                contracts[it].actionType,
-                                contracts[it].cost,
-                                contracts[it].gain
-                            )
-                            Spacer(Modifier.padding(2.dp))
-                            // if-statement handles case in which the last row isn't full
-                            if (it2 < contracts.size) {
-                                PlayerCard(
-                                    contracts[it2].playerImageId,
-                                    contracts[it2].playerName,
-                                    contracts[it2].dateOfGame,
-                                    contracts[it2].actionQuantity,
-                                    contracts[it2].actionType,
-                                    contracts[it2].cost,
-                                    contracts[it2].gain
-                                )
-                            }
-                        }
+            Column(
+                modifier = Modifier
+                    .padding(top = 12.dp, start = 12.dp, end = 12.dp)
+            ){
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    items(contracts.size) { it ->
+                        PlayerCard(contracts[it].playerImageId,
+                            contracts[it].playerName,
+                            contracts[it].dateOfGame,
+                            contracts[it].actionQuantity,
+                            contracts[it].actionType,
+                            contracts[it].cost,
+                            contracts[it].gain
+                        )
                     }
                 }
             }
@@ -131,7 +120,7 @@ fun FilterButton(
 ){
     Button(
         onClick = onFilterClicked,
-        colors = ButtonColors(containerColor = Color(0xfff6f6f6),
+        colors = ButtonColors(containerColor = Color(0x69DED9D9),
             contentColor = Color.DarkGray,
             disabledContainerColor = Color(0xffd6d6d6),
             disabledContentColor = Color.DarkGray),
@@ -145,6 +134,9 @@ fun FilterButton(
 @Composable
 fun FilterRow(){
     LazyRow{
+        item{
+            Spacer(modifier = Modifier.padding(6.dp))
+        }
         item{
             FilterButton("pts", {})
         }
@@ -168,6 +160,9 @@ fun FilterRow(){
         }
         item{
             FilterButton("stl", {})
+        }
+        item{
+            Spacer(modifier = Modifier.padding(6.dp))
         }
     }
 }

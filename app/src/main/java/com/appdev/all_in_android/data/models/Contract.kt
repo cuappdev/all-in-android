@@ -1,9 +1,9 @@
-package com.appdev.all_in_android.models
+package com.appdev.all_in_android.data.models
 
 data class Contract (
     val id: String,
     val playerName: String,
-    val playerImageId: Int,
+    val playearImageId: Int,
     val dateOfGame: String,
     val actionQuantity: Int,
     val actionType: String,

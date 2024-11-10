@@ -1,10 +1,12 @@
 package com.appdev.all_in_android.ui.components.home
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,13 +44,44 @@ import com.appdev.all_in_android.ui.components.general.BuyButton
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RarityChestBottomSheet(
+    showBottomSheetState: Boolean,
     rarity: String,
     cost: Int,
     sheetState: SheetState,
     onDismiss: () -> Unit,
     onBuyNow: () -> Unit = { }
 ) {
+    AnimatedVisibility(
+        visible = showBottomSheetState,
+        enter = slideInVertically(
+            initialOffsetY = { it },
+            animationSpec = tween(300)
+        ),
+        exit = slideOutVertically(
+            targetOffsetY = { it },
+            animationSpec = tween(300)
+        )
+    ) {
+        RarityChestBottomSheetContent(onDismiss, sheetState, rarity, cost, onBuyNow)
+    }
+}
 
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun RarityChestBottomSheetContent(
+    onDismiss: () -> Unit,
+    sheetState: SheetState,
+    rarity: String,
+    cost: Int,
+    onBuyNow: () -> Unit
+) {
+    val imageMap = mapOf(
+        "Common" to R.drawable.common_chest,
+        "Rare" to R.drawable.rare_chest,
+        "Epic" to R.drawable.epic_chest,
+        "Legendary" to R.drawable.legendary_chest
+    )
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
@@ -58,22 +90,25 @@ fun RarityChestBottomSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(390.dp),
+                .height(360.dp),
             verticalArrangement = Arrangement.spacedBy(36.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
+            ) {
                 SheetHeader(rarity, onDismiss)
                 Image(
-                    painter = painterResource(id = R.drawable.legendary_chest),
+                    painter = painterResource(id = imageMap[rarity]!!),
                     contentDescription = null,
+                    modifier = Modifier
+                        .width(111.dp)
+                        .height(96.dp)
                 )
                 CostRow(cost)
                 Text(
-                    text = "Contains a $rarity contract",
+                    text = "Contains a ${rarity.lowercase()} contract",
                     fontSize = 17.sp,
                     color = Color(0xFF979797)
                 )
@@ -84,7 +119,6 @@ fun RarityChestBottomSheet(
         }
 
     }
-
 }
 
 @Composable
@@ -103,12 +137,9 @@ private fun CostRow(cost: Int) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            painter = painterResource(id = R.drawable.ic_red_money),
+            painter = painterResource(id = R.drawable.ic_black_money),
             contentDescription = null,
-            tint = Color.Unspecified,
-            modifier = Modifier
-                .width(34.dp)
-                .height(22.dp)
+            tint = Color.Unspecified
         )
         Text(
             text = cost.toString(),
@@ -124,6 +155,7 @@ private fun SheetHeader(rarity: String, onDismiss: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .height(52.dp)
             .padding(
                 start = 26.dp,
                 end = 26.dp,
@@ -172,7 +204,8 @@ fun RarityChestBottomSheetPreview() {
         )
         if (showBottomSheetState) {
             RarityChestBottomSheet(
-                rarity = "Legendary",
+                showBottomSheetState = showBottomSheetState,
+                rarity = "Rare",
                 cost = 3320,
                 sheetState = sheetState,
                 onDismiss = { showBottomSheetState = false }

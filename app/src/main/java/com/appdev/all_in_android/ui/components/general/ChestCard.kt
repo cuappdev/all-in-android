@@ -47,6 +47,7 @@ enum class CHEST_RARITY {
         override fun name_string(): String {
             return "Common"
         }
+
         override fun color(): Color {
             return CommonBlue
         }
@@ -59,6 +60,7 @@ enum class CHEST_RARITY {
         override fun name_string(): String {
             return "Rare"
         }
+
         override fun color(): Color {
             return RareGreen
         }
@@ -71,6 +73,7 @@ enum class CHEST_RARITY {
         override fun name_string(): String {
             return "Epic"
         }
+
         override fun color(): Color {
             return EpicPurple
         }
@@ -84,6 +87,7 @@ enum class CHEST_RARITY {
         override fun name_string(): String {
             return "Legendary"
         }
+
         override fun color(): Color {
             return LegendaryYellow
         }
@@ -115,8 +119,8 @@ fun ChestCard(
     var headerText: String = ""
     var subText: String = ""
     var chest_image: Int = 0
-    var textColor : Color = Color.Black
-    if(chestType == CHEST_TYPE.RARITY) {
+    var textColor: Color = Color.Black
+    if (chestType == CHEST_TYPE.RARITY) {
         headerText = rarity.name_string()
         subText = "Rarity Chest"
         chest_image = rarity.image_id()
@@ -127,43 +131,84 @@ fun ChestCard(
         chest_image = R.drawable.player_chest
         textColor = PlayerRed
     }
-    Box(modifier = Modifier.width(150.dp).height(205.dp), contentAlignment = Alignment.TopCenter) {
-        Card(modifier = Modifier.padding(top=50.dp).fillMaxWidth().fillMaxHeight()) {
-            Column(modifier = Modifier.padding(top=64.dp, bottom = 18.dp).fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(headerText, fontSize = 22.sp, lineHeight = 33.sp, fontWeight = FontWeight.Bold, color = textColor)
-                Text(subText, fontSize = 15.sp, fontWeight = FontWeight.SemiBold, lineHeight = 22.sp, color = LIGHT_GREY)
+    Box(modifier = Modifier
+        .width(150.dp)
+        .height(205.dp), contentAlignment = Alignment.TopCenter) {
+        Card(modifier = Modifier
+            .padding(top = 50.dp)
+            .fillMaxWidth()
+            .fillMaxHeight()) {
+            Column(
+                modifier = Modifier
+                    .padding(top = 64.dp, bottom = 18.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    headerText,
+                    fontSize = 22.sp,
+                    lineHeight = 33.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = textColor
+                )
+                Text(
+                    subText,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    lineHeight = 22.sp,
+                    color = LIGHT_GREY
+                )
                 Spacer(Modifier.height(2.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Image(painter = painterResource(R.drawable.cost_black), "", modifier = Modifier.size(width = 21.dp, height = 14.dp))
+                    Image(
+                        painter = painterResource(R.drawable.cost_black),
+                        "",
+                        modifier = Modifier.size(width = 21.dp, height = 14.dp)
+                    )
                     Spacer(Modifier.width(4.dp))
-                    Text("1,720", fontSize = 14.sp, fontWeight = FontWeight.Black, lineHeight = 14.sp, color = Color.Black)
+                    Text(
+                        "1,720",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Black,
+                        lineHeight = 14.sp,
+                        color = Color.Black
+                    )
                 }
             }
         }
 
-        Image(painter = painterResource(chest_image), contentDescription = "", modifier = Modifier.width(120.dp).height(105.dp).padding(top=12.dp))
-        if(chestType == CHEST_TYPE.PLAYER) {
+        Image(
+            painter = painterResource(chest_image),
+            contentDescription = "",
+            modifier = Modifier
+                .width(120.dp)
+                .height(105.dp)
+                .padding(top = 12.dp)
+        )
+        if (chestType == CHEST_TYPE.PLAYER) {
 
-            Image(painter = painterResource(player_image_id), "",
+            Image(
+                painter = painterResource(player_image_id), "",
                 modifier = Modifier
                     .size(48.dp)
-                    .padding(top=12.dp, end = 13.dp)
-                    .offset(x=45.dp)
+                    .padding(top = 12.dp, end = 13.dp)
+                    .offset(x = 45.dp)
                     .background(color = Color.White, shape = CircleShape)
                     .clip(CircleShape)
                     .border(
                         BorderStroke(1.dp, Color.White),
                         CircleShape
-                    ))
-
+                    )
+            )
 
 
         }
-        
+
     }
 }
 
-@Preview @Composable
+@Preview
+@Composable
 fun chest_preview() {
-    ChestCard(CHEST_TYPE.PLAYER, player = "Player Name", player_image_id = R.drawable.player_photo, cost = 1720)
+    ChestCard(CHEST_TYPE.RARITY, rarity = CHEST_RARITY.LEGENDARY, cost = 1720)
 }

@@ -1,5 +1,6 @@
 package com.appdev.all_in_android.ui.components.home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -31,10 +32,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.appdev.all_in_android.R
+import com.appdev.all_in_android.ui.components.general.BuyButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,7 +46,8 @@ fun RarityChestBottomSheet(
     rarity: String,
     cost: Int,
     sheetState: SheetState,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    onBuyNow: () -> Unit = { }
 ) {
 
     ModalBottomSheet(
@@ -59,27 +64,21 @@ fun RarityChestBottomSheet(
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ){
                 SheetHeader(rarity, onDismiss)
+                Image(
+                    painter = painterResource(id = R.drawable.legendary_chest),
+                    contentDescription = null,
+                )
+                CostRow(cost)
+                Text(
+                    text = "Contains a $rarity contract",
+                    fontSize = 17.sp,
+                    color = Color(0xFF979797)
+                )
             }
-
-            Surface(
-                shape = RoundedCornerShape(100.dp),
-                color = Color(0xFFFF4F4F),
-                modifier = Modifier.fillMaxWidth(),
-            ){
-                Row(
-
-                ){
-                    Text(
-                        text = "Buy Now",
-                        color = Color.White,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.SemiBold,
-                    )
-                }
-
-            }
+            BuyButton(onBuyNow = onBuyNow)
 
 
         }
@@ -87,6 +86,38 @@ fun RarityChestBottomSheet(
     }
 
 }
+
+@Composable
+private fun CostRow(cost: Int) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = 26.dp,
+                end = 26.dp,
+            ),
+        horizontalArrangement = Arrangement.spacedBy(
+            4.dp,
+            Alignment.CenterHorizontally
+        ),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_red_money),
+            contentDescription = null,
+            tint = Color.Unspecified,
+            modifier = Modifier
+                .width(34.dp)
+                .height(22.dp)
+        )
+        Text(
+            text = cost.toString(),
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold,
+        )
+    }
+}
+
 
 @Composable
 private fun SheetHeader(rarity: String, onDismiss: () -> Unit) {

@@ -76,48 +76,57 @@ private fun RarityChestBottomSheetContent(
     cost: Int,
     onBuyNow: () -> Unit
 ) {
+
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState,
+        containerColor = Color.White,
+    ) {
+        RarityChestSheetContent(rarity, onDismiss, cost, onBuyNow)
+
+    }
+}
+
+@Composable
+fun RarityChestSheetContent(
+    rarity: String,
+    onDismiss: () -> Unit,
+    cost: Int,
+    onBuyNow: () -> Unit
+) {
     val imageMap = mapOf(
         "Common" to R.drawable.common_chest,
         "Rare" to R.drawable.rare_chest,
         "Epic" to R.drawable.epic_chest,
         "Legendary" to R.drawable.legendary_chest
     )
-    ModalBottomSheet(
-        onDismissRequest = onDismiss,
-        sheetState = sheetState,
-        containerColor = Color.White,
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(360.dp),
+        verticalArrangement = Arrangement.spacedBy(36.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(360.dp),
-            verticalArrangement = Arrangement.spacedBy(36.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                SheetHeader(rarity, onDismiss)
-                Image(
-                    painter = painterResource(id = imageMap[rarity]!!),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .width(111.dp)
-                        .height(96.dp)
-                )
-                CostRow(cost)
-                Text(
-                    text = "Contains a ${rarity.lowercase()} contract",
-                    fontSize = 17.sp,
-                    color = Color(0xFF979797)
-                )
-            }
-            BuyButton(onBuyNow = onBuyNow)
-
-
+            SheetHeader(rarity, onDismiss)
+            Image(
+                painter = painterResource(id = imageMap[rarity]!!),
+                contentDescription = null,
+                modifier = Modifier
+                    .width(111.dp)
+                    .height(96.dp)
+            )
+            CostRow(cost)
+            Text(
+                text = "Contains a ${rarity.lowercase()} contract",
+                fontSize = 17.sp,
+                color = Color(0xFF979797)
+            )
         }
-
+        BuyButton(onBuyNow = onBuyNow)
     }
 }
 

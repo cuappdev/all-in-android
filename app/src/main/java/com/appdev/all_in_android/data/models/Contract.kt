@@ -1,4 +1,4 @@
-package com.appdev.all_in_android.models
+package com.appdev.all_in_android.data.models
 
 import com.appdev.all_in_android.R
 

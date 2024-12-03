@@ -11,13 +11,30 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.lifecycleScope
+import com.appdev.all_in_android.data.PostApi
+import com.appdev.all_in_android.data.repositories.PlayerRepository
 import com.appdev.all_in_android.ui.components.general.AllInTopBar
 import com.appdev.all_in_android.ui.navigation.NavigationSetup
 import com.appdev.all_in_android.ui.theme.AllinandroidTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //testing networking
+        lifecycleScope.launch {
+//            val postApi = PostApi.instance
+//            println("hello")
+//            postApi.getAllContracts().body()?.forEach { println(it.id) }
+//            postApi.getAllUsers().body()?.forEach { println(it.id) }
+//            postApi.getAllTransactions().body()?.forEach { println(it.transactionDate) }
+//            postApi.getAllPlayers().body()?.forEach { println(it.lastName) }
+
+            val playerRepository = PlayerRepository(PostApi.instance)
+            playerRepository.getAllPlayers().forEach{println(it.lastName)}
+        }
+
         enableEdgeToEdge()
         setContent {
             AllinandroidTheme {

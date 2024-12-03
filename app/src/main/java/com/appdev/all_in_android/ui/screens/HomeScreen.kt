@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appdev.all_in_android.R
-import com.appdev.all_in_android.models.Contract
+import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.ui.components.general.AllInTopBar
 import com.appdev.all_in_android.ui.components.general.PlayerCard
 

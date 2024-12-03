@@ -33,8 +33,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.appdev.all_in_android.models.Contract
-import com.appdev.all_in_android.models.ContractRepo
+import com.appdev.all_in_android.data.models.Contract
+import com.appdev.all_in_android.data.models.ContractRepo
 import com.appdev.all_in_android.ui.components.general.AllInTopBar
 import com.appdev.all_in_android.ui.components.general.PlayerCard
 

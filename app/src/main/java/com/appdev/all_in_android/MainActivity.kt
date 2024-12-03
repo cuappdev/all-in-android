@@ -31,8 +31,8 @@ class MainActivity : ComponentActivity() {
 //            postApi.getAllTransactions().body()?.forEach { println(it.transactionDate) }
 //            postApi.getAllPlayers().body()?.forEach { println(it.lastName) }
 
-            val playerRepository = PlayerRepository(PostApi.instance)
-            playerRepository.getAllPlayers().forEach{println(it.lastName)}
+//            val playerRepository = PlayerRepository(PostApi.instance)
+//            playerRepository.getAllPlayers().forEach{println(it.lastName)}
         }
 
         enableEdgeToEdge()

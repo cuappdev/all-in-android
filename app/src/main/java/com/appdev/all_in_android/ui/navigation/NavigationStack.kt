@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.appdev.all_in_android.models.ContractRepo
 import com.appdev.all_in_android.ui.screens.HomeScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceScreen
 import com.appdev.all_in_android.ui.screens.ProfileScreen
@@ -92,7 +93,7 @@ fun SetupNavHost(
             HomeScreen()
         }
         composable(Routes.MARKETPLACE.route) {
-            MarketplaceScreen()
+            MarketplaceScreen(ContractRepo.players)
         }
         composable(Routes.PROFILE.route) {
             ProfileScreen()

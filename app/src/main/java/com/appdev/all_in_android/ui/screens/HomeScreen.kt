@@ -15,16 +15,20 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.appdev.all_in_android.R
 import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.ui.components.general.AllInTopBar
 import com.appdev.all_in_android.ui.components.general.PlayerCard
+import com.appdev.all_in_android.viewmodel.HomeViewModel
 
 data class PlayerChest(
     val id: Int,
@@ -44,8 +48,11 @@ data class RarityChest(
 fun HomeScreen(
     PlayerChests: List<PlayerChest> = emptyList(),
     RarityChests: List<RarityChest> = emptyList(),
-    MarketContracts: List<Contract> = emptyList()
+    MarketContracts: List<Contract> = emptyList(),
+    homeViewModel: HomeViewModel = hiltViewModel()
 ) {
+    val uiState by homeViewModel.uiStateFlow.collectAsState()
+
     Scaffold(
         topBar = { AllInTopBar(title = "All In", money = 1000) },
         modifier = Modifier
@@ -73,7 +80,7 @@ fun HomeScreen(
             // All Chests
             SectionRow(
                 title = "All Chests",
-                Cards = RarityChests,
+                Cards = uiState.playerList//RarityChests,
             )
             // Marketplace
             SectionRow(

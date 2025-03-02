@@ -1,7 +1,16 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
+
+val secretsProperties = Properties().apply {
+    load(rootProject.file("secrets.properties").inputStream())
+}
+
 
 android {
     namespace = "com.appdev.all_in_android"
@@ -27,6 +36,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "BACKEND_URL", secretsProperties["PROD_ENDPOINT"].toString())
+        }
+        debug {
+            buildConfigField("String", "BACKEND_URL", secretsProperties["DEV_ENDPOINT"].toString())
         }
     }
     compileOptions {
@@ -38,6 +51,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.7"
@@ -71,11 +85,18 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation (libs.accompanist.navigation.animation)
+    implementation(libs.accompanist.navigation.animation)
 
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     //hilt
-    implementation (libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

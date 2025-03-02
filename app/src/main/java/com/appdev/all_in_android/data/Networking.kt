@@ -5,22 +5,7 @@ import com.appdev.all_in_android.data.models.Player
 import com.appdev.all_in_android.data.models.Transaction
 import com.appdev.all_in_android.data.models.User
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-
-object PostApi {
-    private val retrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl("http://157.245.116.197:8080/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    val instance: NetworkingService by lazy {
-        retrofit.create(NetworkingService::class.java)
-    }
-}
 
 interface NetworkingService {
     @GET("/contracts/")

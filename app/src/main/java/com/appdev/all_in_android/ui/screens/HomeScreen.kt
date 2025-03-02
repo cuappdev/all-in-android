@@ -15,8 +15,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -28,7 +26,7 @@ import com.appdev.all_in_android.R
 import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.ui.components.general.AllInTopBar
 import com.appdev.all_in_android.ui.components.general.PlayerCard
-import com.appdev.all_in_android.viewmodel.HomeViewModel
+import com.appdev.all_in_android.ui.viewmodel.MarketplaceViewModel
 
 data class PlayerChest(
     val id: Int,
@@ -49,9 +47,9 @@ fun HomeScreen(
     PlayerChests: List<PlayerChest> = emptyList(),
     RarityChests: List<RarityChest> = emptyList(),
     MarketContracts: List<Contract> = emptyList(),
-    homeViewModel: HomeViewModel = hiltViewModel()
+    marketplaceViewModel: MarketplaceViewModel = hiltViewModel()
 ) {
-    val uiState by homeViewModel.uiStateFlow.collectAsState()
+    val uiState = marketplaceViewModel.collectUiStateValue()
 
     Scaffold(
         topBar = { AllInTopBar(title = "All In", money = 1000) },
@@ -80,7 +78,7 @@ fun HomeScreen(
             // All Chests
             SectionRow(
                 title = "All Chests",
-                Cards = uiState.playerList//RarityChests,
+                Cards = uiState.players//RarityChests,
             )
             // Marketplace
             SectionRow(

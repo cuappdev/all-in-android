@@ -1,4 +1,4 @@
-package com.appdev.all_in_android.viewmodel
+package com.appdev.all_in_android.ui.viewmodel
 
 
 import androidx.compose.runtime.Composable
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<UiState>(initialUiState: UiState) : ViewModel() {
+abstract class AllInViewModel<UiState>(initialUiState: UiState) : ViewModel() {
 
     private val _uiStateFlow = MutableStateFlow(initialUiState)
     val uiStateFlow: StateFlow<UiState> = _uiStateFlow.asStateFlow()

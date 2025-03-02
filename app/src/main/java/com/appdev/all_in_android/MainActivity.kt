@@ -6,22 +6,25 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
-import com.appdev.all_in_android.data.PostApi
 import com.appdev.all_in_android.data.repositories.PlayerRepository
 import com.appdev.all_in_android.ui.components.general.AllInTopBar
 import com.appdev.all_in_android.ui.navigation.NavigationSetup
 import com.appdev.all_in_android.ui.theme.AllinandroidTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         //testing networking
         lifecycleScope.launch {
 //            val postApi = PostApi.instance
@@ -37,14 +40,7 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            AllinandroidTheme {
-                Scaffold(
-                    topBar = { AllInTopBar(title = "Home", money = 1000) },
-                    modifier = Modifier.fillMaxSize()
-                ) { innerPadding ->
-                }
-            }
-            androidx.compose.material3.MaterialTheme {
+            MaterialTheme {
                 NavigationSetup()
             }
         }

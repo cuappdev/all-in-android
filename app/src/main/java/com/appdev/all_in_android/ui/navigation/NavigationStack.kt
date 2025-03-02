@@ -19,6 +19,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.appdev.all_in_android.data.models.ContractRepo
+import com.appdev.all_in_android.ui.components.general.AllInTopBar
 import com.appdev.all_in_android.ui.screens.HomeScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceScreen
 import com.appdev.all_in_android.ui.screens.ProfileScreen
@@ -37,6 +38,7 @@ fun NavigationSetup() {
     }
 
     Scaffold(
+        topBar = { AllInTopBar(title = "Home", money = 1000) },
         bottomBar = {
             if (showBottomBar.value) {
                 BottomNavigationBar(navController, NavigationItem.bottomNavTabList)
@@ -44,7 +46,7 @@ fun NavigationSetup() {
         }
     ) { innerPadding ->
         SetupNavHost(
-            modifier = Modifier.padding(innerPadding),
+//            modifier = Modifier.padding(innerPadding),
             navController = navController,
             showBottomBar = showBottomBar
         )

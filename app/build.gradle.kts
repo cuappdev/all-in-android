@@ -1,7 +1,16 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
+
+val secretsProperties = Properties().apply {
+    load(rootProject.file("secrets.properties").inputStream())
+}
+
 
 android {
     namespace = "com.appdev.all_in_android"
@@ -10,7 +19,7 @@ android {
     defaultConfig {
         applicationId = "com.appdev.all_in_android"
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 69
         versionName = "blue-1.0.1-crashfix"
 
@@ -27,6 +36,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "BACKEND_URL", secretsProperties["PROD_ENDPOINT"].toString())
+        }
+        debug {
+            buildConfigField("String", "BACKEND_URL", secretsProperties["DEV_ENDPOINT"].toString())
         }
     }
     compileOptions {
@@ -38,6 +51,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.7"
@@ -59,8 +73,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation("io.coil-kt.coil3:coil-compose:3.0.0-rc01")
-    implementation("androidx.compose.material:material:1.5.1")
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.material)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.runtime.ktx)
     testImplementation(libs.junit)
@@ -71,11 +85,18 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation ("com.google.accompanist:accompanist-navigation-animation:0.28.0")
+    implementation(libs.accompanist.navigation.animation)
 
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     //hilt
-    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

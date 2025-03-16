@@ -1,5 +1,6 @@
 package com.appdev.all_in_android.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.data.models.Player
@@ -26,5 +27,12 @@ class MarketplaceViewModel @Inject constructor(
 ) : AllInViewModel<MarketplaceUiState>(
     initialUiState = MarketplaceUiState()
 ) {
+    init {
+        viewModelScope.launch {
+            val players = playerRepository.getAllPlayers()
+            Log.d("MarketplaceViewModel", "Players: $players")
+            applyMutation { copy(players = players ?: emptyList()) }
+        }
+    }
 
 }

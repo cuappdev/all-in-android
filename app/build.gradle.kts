@@ -89,6 +89,8 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 
     //hilt
     implementation(libs.androidx.hilt.navigation.compose)

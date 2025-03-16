@@ -1,5 +1,6 @@
 package com.appdev.all_in_android.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,14 +34,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.data.models.ContractRepo
 import com.appdev.all_in_android.ui.components.general.AllInTopBar
 import com.appdev.all_in_android.ui.components.general.PlayerCard
+import com.appdev.all_in_android.ui.viewmodel.MarketplaceViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MarketplaceScreen(contracts : List<Contract>) {
+fun MarketplaceScreen(
+    contracts : List<Contract>,
+    marketplaceViewModel: MarketplaceViewModel = hiltViewModel()
+) {
+    val marketPlaceUiState = marketplaceViewModel.collectUiStateValue()
+    Log.d("MarketplaceScreen", "MarketplaceScreen: $marketPlaceUiState")
     Scaffold(
         topBar = { AllInTopBar("Marketplace", 1000) }
     ) { padding ->

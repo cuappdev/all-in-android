@@ -12,8 +12,10 @@ val Pink40 = Color(0xFF7D5260)
 
 val LIGHT_GREY = Color(0xff929292)
 
+val DefaultGray = Color(0xff606060)
 val EpicPurple = Color(0xFF8643CB)
 val PlayerRed = Color(0xFFFF4F4F)
 val RareGreen = Color(0xFF378C27)
 val CommonBlue = Color(0xFF5794D1)
 val LegendaryYellow = Color(0xFFE9B140)
+val backgroundBlue = Color(0xff15141B)

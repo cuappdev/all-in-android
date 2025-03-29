@@ -2,6 +2,7 @@ package com.appdev.all_in_android.ui.components.general
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,6 +33,7 @@ fun BetCard(
     cost: Double,
     gain: Double,
     playerImageUrl: String = "",
+    onClick: () -> Unit
 ){
     val gradientBrush = Brush.linearGradient(
         colors = listOf(Color(0xFF1F70C7), Color(0xFF7DF3FE), Color(0xFF887DFE), Color(0xFF7D97FE))
@@ -48,7 +50,10 @@ fun BetCard(
                 color = Color(0xFF201E2D),
                 shape = RoundedCornerShape(8.dp)
             )
-            .padding(16.dp),
+            .padding(16.dp)
+            .clickable(
+                onClick = onClick
+            ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ){
@@ -130,5 +135,5 @@ private fun BetCardPreview(){
         bettingLine = "Scores first goal of game",
         cost = 20.00,
         gain = 40.00
-    )
+    ){}
 }

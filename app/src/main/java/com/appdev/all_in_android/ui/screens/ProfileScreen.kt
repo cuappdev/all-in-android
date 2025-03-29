@@ -74,15 +74,7 @@ fun ProfileScreen(
                     .padding(bottom = 8.dp)
             ) {
                 items(contracts) { contract ->
-                    PlayerCard(
-                        playerImageId = contract.playerImageId,
-                        playerName = contract.playerName,
-                        dateOfGame = contract.dateOfGame,
-                        actionQuantity = contract.actionQuantity,
-                        actionType = contract.actionType,
-                        cost = contract.cost,
-                        gain = contract.gain
-                    )
+
                 }
             }
         }

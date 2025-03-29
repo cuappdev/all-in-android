@@ -82,14 +82,7 @@ fun MarketplaceScreen(
                     horizontalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     items(contracts.size) { it ->
-                        PlayerCard(contracts[it].playerImageId,
-                            contracts[it].playerName,
-                            contracts[it].dateOfGame,
-                            contracts[it].actionQuantity,
-                            contracts[it].actionType,
-                            contracts[it].cost,
-                            contracts[it].gain
-                        )
+
                     }
                 }
             }

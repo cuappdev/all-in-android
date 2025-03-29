@@ -3,6 +3,7 @@ package com.appdev.all_in_android.ui.components.bet_tracker
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,6 +38,7 @@ fun ContractCard(
     contractCost: Int,
     contractGain: Int,
     playerImageUrl: String = "",
+    onClick: () -> Unit
 ) {
     val gradientBrush = Brush.linearGradient(
         colors = listOf(Color(0xFF1F70C7), Color(0xFF7DF3FE), Color(0xFF887DFE), Color(0xFF7D97FE))
@@ -56,6 +58,9 @@ fun ContractCard(
                 shape = RoundedCornerShape(13.dp)
             )
             .padding(12.dp)
+            .clickable(
+                onClick = onClick
+            )
     ) {
         ContractHeaderContent(playerImageUrl, contractTitle, contractDate, contractSport)
 
@@ -195,7 +200,7 @@ private fun ContractCardPreview() {
             contractCost = 1220,
             contractGain = 3240,
             playerImageUrl = "https://cornellbigred.com/images/2023/8/22/MBKB_Williams_Nazzir_23_CROP.jpg?width=80&quality=90"
-        )
+        ){}
     }
 
 }

@@ -131,15 +131,7 @@ private fun <T> SectionRow(
 //                        )
 //                    }
                     is Contract -> {
-                        PlayerCard(
-                            playerImageId = card.playerImageId,
-                            playerName = card.playerName,
-                            dateOfGame = card.dateOfGame,
-                            actionQuantity = card.actionQuantity,
-                            actionType = card.actionType,
-                            cost = card.cost,
-                            gain = card.gain
-                        )
+
                     }
                 }
             }

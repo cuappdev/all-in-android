@@ -9,25 +9,25 @@ sealed class NavigationItem(
 ){
     object Home: NavigationItem(
         route = Routes.HOME.route,
-        iconId = R.drawable.ic_nav_home,
+        iconId = R.drawable.ic_home,
         selectedRoutes = setOf(Routes.HOME.route)
     )
     object Marketplace: NavigationItem(
         route = Routes.MARKETPLACE.route,
-        iconId = R.drawable.ic_nav_marketplace,
+        iconId = R.drawable.ic_marketplace,
         selectedRoutes = setOf(Routes.MARKETPLACE.route)
     )
-    object Profile: NavigationItem(
-        route = Routes.PROFILE.route,
-        iconId = R.drawable.ic_nav_profile,
-        selectedRoutes = setOf(Routes.PROFILE.route)
+    object BetTracker: NavigationItem(
+        route = Routes.BET_TRACKER.route,
+        iconId = R.drawable.ic_bet_tracker,
+        selectedRoutes = setOf(Routes.BET_TRACKER.route)
     )
 
     companion object {
         val bottomNavTabList = listOf(
             Home,
             Marketplace,
-            Profile
+            BetTracker
         )
     }
 }
@@ -45,9 +45,9 @@ interface NavUnit {
  * NavHost/new routes should be added here. Routes can exist independent of tabs (like onboarding).
  */
 enum class Routes(override var route: String) : NavUnit {
-    HOME("home"),
-    MARKETPLACE("marketplace"),
-    PROFILE("profile")
+    HOME("Home"),
+    MARKETPLACE("Marketplace"),
+    BET_TRACKER("Bet Tracker")
 }
 
 

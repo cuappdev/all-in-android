@@ -1,10 +1,9 @@
-package com.appdev.all_in_android.ui.components.profile
+package com.appdev.all_in_android.ui.components.bet_tracker
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -42,7 +41,8 @@ fun ContractCard(
     val gradientBrush = Brush.linearGradient(
         colors = listOf(Color(0xFF1F70C7), Color(0xFF7DF3FE), Color(0xFF887DFE), Color(0xFF7D97FE))
     )
-    Box(
+    Column(
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
             .width(160.dp)
             .height(190.dp)
@@ -56,34 +56,6 @@ fun ContractCard(
                 shape = RoundedCornerShape(13.dp)
             )
             .padding(12.dp)
-    ) {
-        ContractContent(
-            playerImageUrl,
-            contractTitle,
-            contractDate,
-            contractSport,
-            gradientBrush,
-            contractLine,
-            contractCost,
-            contractGain
-        )
-
-    }
-}
-
-@Composable
-private fun ContractContent(
-    playerImageUrl: String,
-    contractTitle: String,
-    contractDate: String,
-    contractSport: String,
-    gradientBrush: Brush,
-    contractLine: String,
-    contractCost: Int,
-    contractGain: Int
-) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         ContractHeaderContent(playerImageUrl, contractTitle, contractDate, contractSport)
 
@@ -184,7 +156,7 @@ private fun CostGainTextBody(contractCost: Int, contractGain: Int) {
             color = Color(0xFFF97066)
         )
         Text(
-            text = "Cost: $contractGain",
+            text = "Gain: $contractGain",
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium,
             color = Color(0xFF47CD89)
@@ -209,7 +181,7 @@ private fun BlueDottedLine() {
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+private fun ContractCardPreview() {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,

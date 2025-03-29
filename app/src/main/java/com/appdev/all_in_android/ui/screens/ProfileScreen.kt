@@ -26,7 +26,7 @@ import com.appdev.all_in_android.R
 import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.ui.components.general.AllInTopBar
 import com.appdev.all_in_android.ui.components.general.PlayerCard
-import com.appdev.all_in_android.ui.components.profile.PhotoPicker
+import com.appdev.all_in_android.ui.components.general.PhotoPicker
 
 @Composable
 fun ProfileScreen(

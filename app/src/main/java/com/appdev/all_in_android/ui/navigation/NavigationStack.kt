@@ -5,6 +5,7 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -13,13 +14,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.appdev.all_in_android.data.models.ContractRepo
-import com.appdev.all_in_android.ui.components.general.AllInTopBar
 import com.appdev.all_in_android.ui.screens.HomeScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceScreen
 import com.appdev.all_in_android.ui.screens.ProfileScreen
@@ -38,15 +39,14 @@ fun NavigationSetup() {
     }
 
     Scaffold(
-        topBar = { AllInTopBar(title = "Home", money = 1000) },
         bottomBar = {
             if (showBottomBar.value) {
                 BottomNavigationBar(navController, NavigationItem.bottomNavTabList)
             }
-        }
+        },
+        containerColor = Color(0xFF15141B)
     ) { innerPadding ->
         SetupNavHost(
-//            modifier = Modifier.padding(innerPadding),
             navController = navController,
             showBottomBar = showBottomBar
         )
@@ -55,9 +55,7 @@ fun NavigationSetup() {
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController, tabItems: List<NavigationItem>) {
-    NavigationBar(
-        containerColor = Color.White,
-    ) {
+    NavigationBar() {
         val currentRoute = currentRoute(navController)
         tabItems.forEach { item ->
             BottomNavigationItem(
@@ -67,6 +65,13 @@ fun BottomNavigationBar(navController: NavHostController, tabItems: List<Navigat
                             id = item.iconId
                         ),
                         contentDescription = item.route
+                    )
+                },
+                label = {
+                    Text(
+                        text = item.route,
+                        fontSize = 12.sp,
+                        color = Color.White
                     )
                 },
                 selected = item.selectedRoutes.contains(currentRoute),
@@ -97,7 +102,7 @@ fun SetupNavHost(
         composable(Routes.MARKETPLACE.route) {
             MarketplaceScreen(ContractRepo.players)
         }
-        composable(Routes.PROFILE.route) {
+        composable(Routes.BET_TRACKER.route) {
             ProfileScreen()
         }
     }

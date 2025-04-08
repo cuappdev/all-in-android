@@ -28,6 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import com.appdev.all_in_android.ui.theme.gradientBorder
+import com.appdev.all_in_android.ui.theme.gradientBrush
 
 @Composable
 fun ContractCard(
@@ -40,19 +42,12 @@ fun ContractCard(
     playerImageUrl: String = "",
     onClick: () -> Unit
 ) {
-    val gradientBrush = Brush.linearGradient(
-        colors = listOf(Color(0xFF1F70C7), Color(0xFF7DF3FE), Color(0xFF887DFE), Color(0xFF7D97FE))
-    )
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
             .width(160.dp)
             .height(190.dp)
-            .border(
-                width = 1.dp,
-                brush = gradientBrush,
-                shape = RoundedCornerShape(13.dp)
-            )
+            .gradientBorder()
             .background(
                 color = Color(0xFF201E2D),
                 shape = RoundedCornerShape(13.dp)
@@ -200,7 +195,7 @@ private fun ContractCardPreview() {
             contractCost = 1220,
             contractGain = 3240,
             playerImageUrl = "https://cornellbigred.com/images/2023/8/22/MBKB_Williams_Nazzir_23_CROP.jpg?width=80&quality=90"
-        ){}
+        ) {}
     }
 
 }

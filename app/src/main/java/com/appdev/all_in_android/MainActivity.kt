@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
-            MaterialTheme {
+            AllinandroidTheme {
                 NavigationSetup()
             }
         }

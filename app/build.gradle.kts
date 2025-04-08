@@ -92,6 +92,8 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
 
+    implementation(libs.androidx.ui.text.google.fonts)
+
     //hilt
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.hilt.android)

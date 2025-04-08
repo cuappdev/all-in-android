@@ -13,6 +13,11 @@ data class Contract(
     val gain: Int
 )
 
+data class ContractCreateRequest(
+    val user_id: Int,
+    val player_id: Int
+)
+
 object ContractRepo {
     val players = listOf(
         Contract(

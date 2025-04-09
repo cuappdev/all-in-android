@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
 import com.appdev.all_in_android.ui.components.general.AllInTopBar
 import com.appdev.all_in_android.ui.navigation.NavigationSetup
+import com.appdev.all_in_android.ui.screens.CartScreen
 import com.appdev.all_in_android.ui.theme.AllinandroidTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -38,8 +39,10 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
+
             AllinandroidTheme {
                 NavigationSetup()
+
             }
         }
     }

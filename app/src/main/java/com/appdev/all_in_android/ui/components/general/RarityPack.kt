@@ -1,7 +1,6 @@
 package com.appdev.all_in_android.ui.components.general
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -21,15 +19,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appdev.all_in_android.R
+import com.appdev.all_in_android.ui.theme.gradientBorder
 
 @Composable
 fun RarityPack(
     rarity: String,
     onClick: () -> Unit
 ) {
-    val gradientBrush = Brush.linearGradient(
-        colors = listOf(Color(0xFF1F70C7), Color(0xFF7DF3FE), Color(0xFF887DFE), Color(0xFF7D97FE))
-    )
     val rarityImageId = when (rarity) {
         "Rare" -> R.drawable.ic_rare
         "Epic" -> R.drawable.ic_epic
@@ -49,11 +45,7 @@ fun RarityPack(
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .size(164.dp)
-                .border(
-                    width = 1.dp,
-                    brush = gradientBrush,
-                    shape = RoundedCornerShape(8.dp)
-                )
+                .gradientBorder()
                 .background(
                     color = Color(0xFF201E2D),
                     shape = RoundedCornerShape(8.dp)

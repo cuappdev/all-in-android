@@ -17,3 +17,6 @@ val PlayerRed = Color(0xFFFF4F4F)
 val RareGreen = Color(0xFF378C27)
 val CommonBlue = Color(0xFF5794D1)
 val LegendaryYellow = Color(0xFFE9B140)
+
+val GainGreen = Color(0xFF47CD89)
+val CostRed = Color(0xFFF97066)

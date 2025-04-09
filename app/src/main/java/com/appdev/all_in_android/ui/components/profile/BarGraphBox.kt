@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -71,6 +72,7 @@ private fun Header(
         Text(
             text = "Gains/Losses",
             fontFamily = fontFamily,
+            fontWeight = FontWeight.Medium,
             color = Color.White,
             fontSize = 20.sp
         )
@@ -81,28 +83,33 @@ private fun Header(
             Text(
                 text = toDollarString(gain, toInt = true),
                 color = Color.White,
-                fontSize = 20.sp
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Medium
             )
             Row {
                 Text(
                     text = toDollarString(gainThisWeek, toInt = false),
                     color = valueToColor(gainThisWeek),
-                    fontSize = 11.sp
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Medium
                 )
                 Text(
                     text = " This week", color = Color.White,
-                    fontSize = 11.sp
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Medium
                 )
             }
             Row {
                 Text(
                     text = toDollarString(gainLastWeek, toInt = false),
                     color = valueToColor(gainLastWeek),
-                    fontSize = 11.sp
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Medium
                 )
                 Text(
                     text = " Last week", color = Color.White,
-                    fontSize = 11.sp
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Medium
                 )
             }
         }
@@ -162,7 +169,7 @@ fun BarGraph(
                     val xStep = canvasWidth / values.size
                     val yZero =
                         ((topValue / range) * canvasHeight).toFloat().coerceIn(0f, canvasHeight)
-                    val pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f,5f), 0f)
+                    val pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f)
                     graphWidth = canvasWidth.toDp()
                     barWidth = (canvasWidth / values.size * 0.6f).toDp()
                     // X-axis

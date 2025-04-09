@@ -31,9 +31,8 @@ import com.appdev.all_in_android.ui.theme.CostRed
 import com.appdev.all_in_android.ui.theme.GainGreen
 import com.appdev.all_in_android.ui.theme.fontFamily
 import com.appdev.all_in_android.ui.theme.gradientBorder
-import java.util.Locale
+import com.appdev.all_in_android.util.toDollarString
 import kotlin.math.abs
-import kotlin.math.absoluteValue
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.max
@@ -239,11 +238,3 @@ fun BarGraphPreview1() {
 private fun valueToColor(amount: Double) =
     if (amount > 0) GainGreen else CostRed
 
-
-private fun toDollarString(amount: Double, toInt: Boolean): String {
-    val sign = if (amount >= 0) "+" else "-"
-    val absoluteAmt = amount.absoluteValue
-    val amountString = if (toInt) (absoluteAmt).roundToInt()
-    else String.format(Locale.US, "%.2f", absoluteAmt)
-    return "$sign$$amountString"
-}

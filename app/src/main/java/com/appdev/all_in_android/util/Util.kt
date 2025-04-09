@@ -11,3 +11,13 @@ fun toDollarString(amount: Double, toInt: Boolean): String {
     else String.format(Locale.US, "%.2f", absoluteAmt)
     return "$sign$$amountString"
 }
+
+fun firstInitialLastName(fullName: String): String {
+    val names = fullName.split(" ")
+    if (names.size < 2) {
+        return fullName
+    }
+    val firstNameInitial = names[0].first().uppercase() + "."
+    val lastName = names.last()
+    return "$firstNameInitial $lastName"
+}

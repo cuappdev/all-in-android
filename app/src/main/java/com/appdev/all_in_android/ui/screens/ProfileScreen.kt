@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.sp
 import com.appdev.all_in_android.R
 import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.ui.components.general.AllInTopBar
-import com.appdev.all_in_android.ui.components.general.PlayerCard
 import com.appdev.all_in_android.ui.components.general.PhotoPicker
 
 @Composable
@@ -135,61 +134,73 @@ fun ProfileScreenPreview() {
             "1",
             "John Doe",
             R.drawable.player_photo,
+            "UPenn",
             "VS 04/26",
             4,
             "FGA",
             1000,
-            2000
+            2000,
+            sport = "Men's Basketball"
         ),
         Contract(
             "2",
             "Jane Doe",
             R.drawable.player_photo,
+            "UPenn",
             "VS 04/26",
             4,
             "FGA",
             1000,
-            2000
+            2000,
+            sport = "Men's Basketball"
         ),
         Contract(
             "3",
             "John Doe",
             R.drawable.player_photo,
+            "UPenn",
             "VS 04/26",
             4,
             "FGA",
             1000,
-            2000
+            2000,
+            sport = "Men's Basketball"
         ),
         Contract(
             "4",
             "Jane Doe",
             R.drawable.player_photo,
+            "UPenn",
             "VS 04/26",
             4,
             "FGA",
             1000,
-            2000
+            2000,
+            sport = "Men's Basketball"
         ),
         Contract(
             "5",
             "John Doe",
             R.drawable.player_photo,
+            "UPenn",
             "VS 04/26",
             4,
             "FGA",
             1000,
-            2000
+            2000,
+            sport = "Men's Basketball"
         ),
         Contract(
             "6",
             "Jane Doe",
             R.drawable.player_photo,
+            "UPenn",
             "VS 04/26",
             4,
             "FGA",
             1000,
-            2000
+            2000,
+            sport = "Men's Basketball"
         ),
 
         )

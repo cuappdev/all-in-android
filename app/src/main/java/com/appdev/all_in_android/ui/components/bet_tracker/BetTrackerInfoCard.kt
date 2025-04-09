@@ -38,13 +38,14 @@ fun BetTrackerInfoCard(
             text = titleText,
             color = Color.White,
             fontSize = 12.sp,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Medium,
+            lineHeight = 12.sp
         )
         Text(
             text = bodyText,
             color = Color.White,
             fontSize = 22.sp,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Medium,
         )
     }
 

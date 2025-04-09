@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,20 +27,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import com.appdev.all_in_android.R
+import com.appdev.all_in_android.data.models.Contract
+import com.appdev.all_in_android.ui.theme.AllinandroidTheme
+import com.appdev.all_in_android.ui.theme.fontFamily
 import com.appdev.all_in_android.ui.theme.gradientBorder
 import com.appdev.all_in_android.ui.theme.gradientBrush
+import com.appdev.all_in_android.util.firstInitialLastName
+import java.util.Locale
 
 @Composable
 fun ContractCard(
-    contractTitle: String,
-    contractDate: String,
-    contractSport: String,
-    contractLine: String,
-    contractCost: Int,
-    contractGain: Int,
-    playerImageUrl: String = "",
+    contract: Contract,
     onClick: () -> Unit
 ) {
+    val (_, playerName, playerImageUrl, opposingTeam, contractDate, actionQuantity, actionType, contractCost, contractGain, contractSport) = contract
+    val contractTitle = "${firstInitialLastName(playerName)} v. $opposingTeam"
+    val contractLine = "$actionQuantity ${actionType.uppercase(Locale.US)}"
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
@@ -65,7 +67,7 @@ fun ContractCard(
 
 @Composable
 private fun ContractHeaderContent(
-    playerImageUrl: String,
+    playerImageUrl: Int,
     contractTitle: String,
     contractDate: String,
     contractSport: String
@@ -98,16 +100,20 @@ private fun ContractHeaderTextBody(
             text = contractTitle,
             color = Color.White,
             fontSize = 16.sp,
-            fontWeight = FontWeight.Medium,
+            fontWeight = FontWeight.Normal,
             modifier = Modifier.width(84.dp),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            lineHeight = 16.sp
         )
         Text(
             text = "$contractDate | $contractSport",
             color = Color.White,
             fontSize = 12.sp,
-            fontWeight = FontWeight.Medium,
-            textAlign = TextAlign.Center
+            fontWeight = FontWeight.Normal,
+            textAlign = TextAlign.Center,
+            fontFamily = fontFamily,
+            letterSpacing = 0.sp,
+            lineHeight = 12.sp
         )
     }
 }
@@ -135,7 +141,8 @@ private fun ContractBodyContent(
             text = contractLine,
             fontSize = 12.sp,
             color = Color.White,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Medium,
+            lineHeight = 12.sp
         )
 
         BlueDottedLine()
@@ -153,13 +160,15 @@ private fun CostGainTextBody(contractCost: Int, contractGain: Int) {
             text = "Cost: $contractCost",
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium,
-            color = Color(0xFFF97066)
+            color = Color(0xFFF97066),
+            lineHeight = 12.sp
         )
         Text(
             text = "Gain: $contractGain",
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium,
-            color = Color(0xFF47CD89)
+            color = Color(0xFF47CD89),
+            lineHeight = 12.sp
         )
     }
 }
@@ -182,20 +191,22 @@ private fun BlueDottedLine() {
 @Preview(showBackground = true)
 @Composable
 private fun ContractCardPreview() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    AllinandroidTheme {
         ContractCard(
-            contractTitle = "C. Manon v. UPenn",
-            contractDate = "03/24",
-            contractSport = "Men's Basketball",
-            contractLine = "4 Rebounds",
-            contractCost = 1220,
-            contractGain = 3240,
-            playerImageUrl = "https://cornellbigred.com/images/2023/8/22/MBKB_Williams_Nazzir_23_CROP.jpg?width=80&quality=90"
-        ) {}
+            Contract(
+                id = "0",
+                playerName = "Chris Manon",
+                playerImageId = R.drawable.player_photo,
+                opposingTeam = "UPenn",
+                dateOfGame = "03/24",
+                actionType = "Rebounds",
+                actionQuantity = 4,
+                cost = 1220,
+                gain = 3240,
+                sport = "Men's Basketball"
+            ), onClick = {}
+        )
     }
 
 }
+

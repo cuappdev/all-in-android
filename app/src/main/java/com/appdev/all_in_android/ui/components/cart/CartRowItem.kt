@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 
@@ -23,10 +24,12 @@ fun CartRowItem(
         ){
             Text(
                 "${title}",
-                fontSize = 14.sp
+                fontSize = 14.sp,
+                color = Color.White
             )
             Text(
-                "$${cost}"
+                "$${cost}",
+                color = Color.White
             )
         }
         Row(
@@ -36,6 +39,7 @@ fun CartRowItem(
             Text(
                 text = subLine,
                 fontSize = 10.sp,
+                color = Color.White
             )
         }
     }

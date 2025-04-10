@@ -21,7 +21,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,7 +36,7 @@ import com.appdev.all_in_android.ui.theme.fontFamily
 import com.appdev.all_in_android.ui.theme.gradientBorder
 import com.appdev.all_in_android.ui.theme.gradientBrush
 import com.appdev.all_in_android.util.firstInitialLastName
-import java.util.Locale
+import kotlin.math.roundToInt
 
 @Composable
 fun ContractCard(
@@ -43,7 +45,7 @@ fun ContractCard(
 ) {
     val (_, playerName, playerImageUrl, opposingTeam, contractDate, actionQuantity, actionType, contractCost, contractGain, contractSport) = contract
     val contractTitle = "${firstInitialLastName(playerName)} v. $opposingTeam"
-    val contractLine = "$actionQuantity ${actionType.uppercase(Locale.US)}"
+    val contractLine = "$actionQuantity ${actionType.capitalize(Locale.current)}"
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
@@ -122,8 +124,8 @@ private fun ContractHeaderTextBody(
 private fun ContractBodyContent(
     gradientBrush: Brush,
     contractLine: String,
-    contractCost: Int,
-    contractGain: Int
+    contractCost: Double,
+    contractGain: Double
 ) {
     Column(
         modifier = Modifier
@@ -147,7 +149,7 @@ private fun ContractBodyContent(
 
         BlueDottedLine()
 
-        CostGainTextBody(contractCost, contractGain)
+        CostGainTextBody(contractCost.roundToInt(), contractGain.roundToInt())
     }
 }
 
@@ -201,8 +203,8 @@ private fun ContractCardPreview() {
                 dateOfGame = "03/24",
                 actionType = "Rebounds",
                 actionQuantity = 4,
-                cost = 1220,
-                gain = 3240,
+                cost = 1220.0,
+                gain = 3240.0,
                 sport = "Men's Basketball"
             ), onClick = {}
         )

@@ -34,6 +34,7 @@ import com.appdev.all_in_android.R
 import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.ui.components.bet_tracker.BetTrackerInfoCard
 import com.appdev.all_in_android.ui.components.bet_tracker.ContractCard
+import com.appdev.all_in_android.ui.components.bet_tracker.HorizontalContractCard
 import com.appdev.all_in_android.ui.components.profile.BarGraphBox
 import com.appdev.all_in_android.ui.theme.AllinandroidTheme
 import com.appdev.all_in_android.util.toDollarString
@@ -148,7 +149,10 @@ fun BetTrackerScreen(
                             titleText = "No. of Contracts Sold",
                             bodyText = contractsSold.toString()
                         )
-                        BetTrackerInfoCard(titleText = "Age of Account", bodyText = ageOfAccount.toString())
+                        BetTrackerInfoCard(
+                            titleText = "Age of Account",
+                            bodyText = ageOfAccount.toString()
+                        )
                     }
                 }
             }
@@ -181,7 +185,7 @@ fun BetTrackerScreen(
             }
             val bets = if (selectedTabIndex == 0) activeBets else pastBets
             items(bets) {
-//                VerticalContractCard(it, onClick = {}) //todo
+                HorizontalContractCard(contract = it, onClick = {})
             }
         }
         // bottom navigation
@@ -217,7 +221,7 @@ fun TabRow(selectedTabIndex: Int, setSelectedTabIndex: (Int) -> Unit) {
 
 @Preview
 @Composable
-fun BetTrackerScreenPreview() {
+private fun BetTrackerScreenPreview() {
     AllinandroidTheme {
         BetTrackerScreen(
             modifier = Modifier, currentAmount = 1000.0,
@@ -234,8 +238,8 @@ fun BetTrackerScreenPreview() {
                     dateOfGame = "03/24",
                     actionType = "Rebounds",
                     actionQuantity = 4,
-                    cost = 1220,
-                    gain = 3240,
+                    cost = 1220.0,
+                    gain = 3240.0,
                     sport = "Men's Basketball"
                 )
             },
@@ -248,8 +252,8 @@ fun BetTrackerScreenPreview() {
                     dateOfGame = "03/24",
                     actionType = "Rebounds",
                     actionQuantity = 4,
-                    cost = 1220,
-                    gain = 3240,
+                    cost = 1220.0,
+                    gain = 3240.0,
                     sport = "Men's Basketball"
                 )
             },
@@ -262,8 +266,8 @@ fun BetTrackerScreenPreview() {
                     dateOfGame = "03/24",
                     actionType = "Rebounds",
                     actionQuantity = 4,
-                    cost = 1220,
-                    gain = 3240,
+                    cost = 1220.0,
+                    gain = 3240.0,
                     sport = "Men's Basketball"
                 )
             }

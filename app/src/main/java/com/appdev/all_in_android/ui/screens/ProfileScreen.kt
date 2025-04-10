@@ -138,8 +138,8 @@ fun ProfileScreenPreview() {
             "VS 04/26",
             4,
             "FGA",
-            1000,
-            2000,
+            1000.0,
+            2000.0,
             sport = "Men's Basketball"
         ),
         Contract(
@@ -150,8 +150,8 @@ fun ProfileScreenPreview() {
             "VS 04/26",
             4,
             "FGA",
-            1000,
-            2000,
+            1000.0,
+            2000.0,
             sport = "Men's Basketball"
         ),
         Contract(
@@ -162,8 +162,8 @@ fun ProfileScreenPreview() {
             "VS 04/26",
             4,
             "FGA",
-            1000,
-            2000,
+            1000.0,
+            2000.0,
             sport = "Men's Basketball"
         ),
         Contract(
@@ -174,8 +174,8 @@ fun ProfileScreenPreview() {
             "VS 04/26",
             4,
             "FGA",
-            1000,
-            2000,
+            1000.0,
+            2000.0,
             sport = "Men's Basketball"
         ),
         Contract(
@@ -186,8 +186,8 @@ fun ProfileScreenPreview() {
             "VS 04/26",
             4,
             "FGA",
-            1000,
-            2000,
+            1000.0,
+            2000.0,
             sport = "Men's Basketball"
         ),
         Contract(
@@ -198,8 +198,8 @@ fun ProfileScreenPreview() {
             "VS 04/26",
             4,
             "FGA",
-            1000,
-            2000,
+            1000.0,
+            2000.0,
             sport = "Men's Basketball"
         ),
 

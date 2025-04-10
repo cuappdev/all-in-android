@@ -84,7 +84,7 @@ fun HorizontalContractCard(contract: Contract, onClick: () -> Unit) {
                 fontSize = 12.sp,
                 lineHeight = 12.sp,
                 color = CostRed,
-                fontWeight = FontWeight.Light
+                fontWeight = FontWeight.Light,
             )
             Text(
                 text = "Gain: $contractGain",

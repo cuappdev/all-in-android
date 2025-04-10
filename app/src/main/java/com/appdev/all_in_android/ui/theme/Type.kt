@@ -3,9 +3,19 @@ package com.appdev.all_in_android.ui.theme
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.googlefonts.Font
+import androidx.compose.ui.text.googlefonts.GoogleFont
+import androidx.compose.ui.unit.sp
 import com.appdev.all_in_android.R
 
+val provider = GoogleFont.Provider(
+    providerAuthority = "com.google.android.gms.fonts",
+    providerPackage = "com.google.android.gms",
+    certificates = R.array.com_google_android_gms_fonts_certs
+)
+val fontName = GoogleFont("Lexend Deca")
 val fontFamily = FontFamily(
     Font(R.font.lexend_deca_semibold, weight = FontWeight.SemiBold),
     Font(R.font.lexend_deca_medium, weight = FontWeight.Medium),

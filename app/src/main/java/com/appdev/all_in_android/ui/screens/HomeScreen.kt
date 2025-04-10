@@ -1,213 +1,192 @@
 package com.appdev.all_in_android.ui.screens
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.appdev.all_in_android.R
-import com.appdev.all_in_android.data.models.Contract
-import com.appdev.all_in_android.ui.components.general.AllInTopBar
-import com.appdev.all_in_android.ui.components.general.PlayerCard
-import com.appdev.all_in_android.ui.viewmodel.MarketplaceViewModel
 
-data class PlayerChest(
-    val id: Int,
-    val name: String,
-    val price: Int,
-    val image: Int
+
+data class ActiveBet(
+    val title: String,
+    val date: String,
+    val sport: String,
+    val bettingLine: String,
+    val cost: Double,
+    val gain: Double,
+    val playerImageUrl: String = "",
 )
 
-data class RarityChest(
-    val id: Int,
-    val name: String,
-    val price: Int,
-    val rarity: String,
-)
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(
-    PlayerChests: List<PlayerChest> = emptyList(),
-    RarityChests: List<RarityChest> = emptyList(),
-    MarketContracts: List<Contract> = emptyList(),
-    marketplaceViewModel: MarketplaceViewModel = hiltViewModel()
-) {
-    val uiState = marketplaceViewModel.collectUiStateValue()
-
+fun HomeScreen() {
+    //TODO: replace with viewmodel call
+    val playerMoney = 1000
+    val activeBets = listOf(
+        ActiveBet(
+            title = "Jake Shane v. Harvard",
+            date = "03/24",
+            sport = "Men's Hockey",
+            bettingLine = "Scores first goal of game",
+            cost = 20.00,
+            gain = 40.00
+        ),
+        ActiveBet(
+            title = "Jake Shane v. Harvard",
+            date = "03/24",
+            sport = "Men's Hockey",
+            bettingLine = "Scores first goal of game",
+            cost = 20.00,
+            gain = 40.00
+        ),
+        ActiveBet(
+            title = "Jake Shane v. Harvard",
+            date = "03/24",
+            sport = "Men's Hockey",
+            bettingLine = "Scores first goal of game",
+            cost = 20.00,
+            gain = 40.00
+        )
+    )
     Scaffold(
-        topBar = { AllInTopBar(title = "All In", money = 1000) },
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
+        topBar = {
+            HomeTopBar({})
+        },
+        containerColor = Color(0xFF15141B)
     ) { innerPadding ->
         Column(
+            verticalArrangement = Arrangement.spacedBy(24.dp),
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFF7F7F7))
                 .padding(
-                    top = innerPadding.calculateTopPadding() + 16.dp,
+                    top = innerPadding.calculateTopPadding() + 12.dp,
                     start = 24.dp,
-//                    end = 24.dp
+                    end = 24.dp,
                 )
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ){
+            UserMoneyDisplay(playerMoney)
+            HeaderButton(title = "My Active Bets")
 
-        ) {
-            // Popular Now Section
-            SectionRow(
-                title = "Popular Now",
-                Cards = PlayerChests,
-            )
-            // All Chests
-            SectionRow(
-                title = "All Chests",
-                Cards = uiState.players//RarityChests,
-            )
-            // Marketplace
-            SectionRow(
-                title = "Marketplace",
-                Cards = MarketContracts,
-                height = 300)
         }
+
+    }
+
+}
+
+@Composable
+private fun HeaderButton(
+    title: String,
+    onClick: () -> Unit = {}
+){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(
+                onClick = onClick
+            ),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(
+            8.dp,
+            Alignment.Start
+        )
+    ) {
+        Text(
+            text = title,
+            color = Color.White,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold
+        )
+        Icon(
+            painter = painterResource(id = R.drawable.ic_chevron_right),
+            contentDescription = "Chevron",
+            tint = Color.Unspecified,
+            modifier = Modifier
+                .width(8.dp)
+                .height(16.dp)
+        )
     }
 }
 
 @Composable
-private fun <T> SectionRow(
-    title: String,
-    Cards: List<T> = emptyList(),
-    height: Int = 250
-) {
-    Column(
+private fun UserMoneyDisplay(playerMoney: Int) {
+    Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(height.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(
+            7.dp,
+            Alignment.End
+        )
     ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_dollar_circle),
+            contentDescription = "Money",
+            tint = Color.Unspecified,
+        )
         Text(
-            text = title,
-            fontSize = 24.sp,
+            text = "$$playerMoney",
+            color = Color.White,
+            fontSize = 20.sp,
             fontWeight = FontWeight.SemiBold
         )
-        LazyRow(
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            contentPadding = PaddingValues(
-                end = 16.dp
-            )
-        ){
-            items(Cards) { card ->
-                when(card){
-//                    is PlayerChest -> {
-//                        PlayerChestCard(
-//                            id = card.id,
-//                            name = card.name,
-//                            price = card.price,
-//                            image = card.image
-//                        )
-//                    }
-//                    is RarityChest -> {
-//                        RarityChestCard(
-//                            id = card.id,
-//                            name = card.name,
-//                            price = card.price,
-//                            rarity = card.rarity
-//                        )
-//                    }
-                    is Contract -> {
-
-                    }
-                }
-            }
-        }
 
     }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun HomeTopBar(
+    onClickFaq: () -> Unit = {},
+) {
+    TopAppBar(
+        title = {
+            Text(
+                text = "All In",
+                color = Color.White,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Color(0xFF15141B),
+        ),
+        actions = {
+            IconButton(onClick = onClickFaq) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_question_circle),
+                    contentDescription = "FAQ",
+                    tint = Color.Unspecified
+                )
+            }
+        },
+        modifier = Modifier.padding(horizontal = 10.dp)
+    )
 }
 
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
-    val contracts = listOf<Contract>(
-        Contract(
-            "1",
-            "John Doe",
-            R.drawable.player_photo,
-            "VS 04/26",
-            4,
-            "FGA",
-            1000,
-            2000
-        ),
-        Contract(
-            "2",
-            "Jane Doe",
-            R.drawable.player_photo,
-            "VS 04/26",
-            4,
-            "FGA",
-            1000,
-            2000
-        ),
-        Contract(
-            "3",
-            "John Doe",
-            R.drawable.player_photo,
-            "VS 04/26",
-            4,
-            "FGA",
-            1000,
-            2000
-        ),
-        Contract(
-            "4",
-            "Jane Doe",
-            R.drawable.player_photo,
-            "VS 04/26",
-            4,
-            "FGA",
-            1000,
-            2000
-        ),
-        Contract(
-            "5",
-            "John Doe",
-            R.drawable.player_photo,
-            "VS 04/26",
-            4,
-            "FGA",
-            1000,
-            2000
-        ),
-        Contract(
-            "6",
-            "Jane Doe",
-            R.drawable.player_photo,
-            "VS 04/26",
-            4,
-            "FGA",
-            1000,
-            2000
-        ),
-
-        )
-    HomeScreen(
-        MarketContracts = contracts
-    )
+private fun HomeScreenPreview() {
+    HomeScreen()
 }

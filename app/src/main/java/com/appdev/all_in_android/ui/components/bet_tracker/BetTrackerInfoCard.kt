@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.appdev.all_in_android.ui.theme.AllinandroidTheme
 import com.appdev.all_in_android.ui.theme.gradientBorder
 
 @Composable
@@ -25,21 +26,20 @@ fun BetTrackerInfoCard(
     Column(
         modifier = Modifier
             .width(164.dp)
-            .height(84.dp)
+            .height(85.dp)
             .gradientBorder()
             .background(
                 color = Color(0xFF201E2D),
                 shape = RoundedCornerShape(8.dp)
             )
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
             text = titleText,
             color = Color.White,
             fontSize = 12.sp,
-            fontWeight = FontWeight.Medium,
-            lineHeight = 12.sp
+            lineHeight = 12.sp,
         )
         Text(
             text = bodyText,
@@ -54,8 +54,10 @@ fun BetTrackerInfoCard(
 @Preview(showBackground = true)
 @Composable
 private fun BetTrackerInfoCardPreview() {
-    BetTrackerInfoCard(
-        titleText = "Age of Account",
-        bodyText = "17 days"
-    )
+    AllinandroidTheme {
+        BetTrackerInfoCard(
+            titleText = "No. of Contracts Sold",
+            bodyText = "7"
+        )
+    }
 }

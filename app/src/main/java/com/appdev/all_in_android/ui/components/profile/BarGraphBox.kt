@@ -40,15 +40,16 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 
-
 @Composable
-fun BarGraphBox(
-    modifier: Modifier = Modifier,
+private fun BarGraphBox(
     gain: Double,
-    gainThisWeek: Double,
-    gainLastWeek: Double,
-    dailyGains: List<Double>,
+    gainThisTime: Double,
+    gainLastTime: Double,
+    thisTimeString: String,
+    lastTimeString: String,
+    gains: List<Double>,
     horizontalLabels: List<String>,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
@@ -57,16 +58,62 @@ fun BarGraphBox(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        Header(gain, gainThisWeek, gainLastWeek)
-        BarGraph(dailyGains, horizontalLabels)
+        Header(gain, gainThisTime, gainLastTime, thisTimeString, lastTimeString)
+        BarGraph(gains, horizontalLabels)
     }
+}
+
+@Composable
+fun MonthBarGraphBox(
+    gain: Double,
+    gainThisMonth: Double,
+    gainLastMonth: Double,
+    weeklyGains: List<Double>,
+    modifier: Modifier = Modifier
+) {
+    val labels = MutableList(weeklyGains.size) { "" }
+    for (i in 1..weeklyGains.size) {
+        labels[i - 1] = "Week $i"
+    }
+    BarGraphBox(
+        gain = gain,
+        gainThisTime = gainThisMonth,
+        gainLastTime = gainLastMonth,
+        thisTimeString = "This Month",
+        lastTimeString = "Last Month",
+        gains = weeklyGains,
+        horizontalLabels = labels,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun WeekBarGraphBox(
+    gain: Double,
+    gainThisWeek: Double,
+    gainLastWeek: Double,
+    dailyGains: List<Double>,
+    modifier: Modifier = Modifier,
+) {
+    BarGraphBox(
+        gain = gain,
+        gainThisTime = gainThisWeek,
+        gainLastTime = gainLastWeek,
+        thisTimeString = "This Week",
+        lastTimeString = "Last Week",
+        gains = dailyGains,
+        horizontalLabels = listOf("M", "T", "W", "TH", "F", "S", "SU"),
+        modifier = modifier
+    )
 }
 
 @Composable
 private fun Header(
     gain: Double,
-    gainThisWeek: Double,
-    gainLastWeek: Double
+    gainThisTime: Double,
+    gainLastTime: Double,
+    thisTimeString: String,
+    lastTimeString: String
 ) {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         Text(
@@ -88,26 +135,26 @@ private fun Header(
             )
             Row {
                 Text(
-                    text = toDollarString(gainThisWeek, toInt = false),
-                    color = valueToColor(gainThisWeek),
+                    text = toDollarString(gainThisTime, toInt = false),
+                    color = valueToColor(gainThisTime),
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    text = " This week", color = Color.White,
+                    text = " $thisTimeString", color = Color.White,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Medium
                 )
             }
             Row {
                 Text(
-                    text = toDollarString(gainLastWeek, toInt = false),
-                    color = valueToColor(gainLastWeek),
+                    text = toDollarString(gainLastTime, toInt = false),
+                    color = valueToColor(gainLastTime),
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Medium
                 )
                 Text(
-                    text = " Last week", color = Color.White,
+                    text = " $lastTimeString", color = Color.White,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Medium
                 )
@@ -231,16 +278,25 @@ fun BarGraph(
 @Composable
 fun BarGraphPreview1() {
     AllinandroidTheme {
-        BarGraphBox(
-            modifier = Modifier.fillMaxWidth(),
-            gain = 20.0,
-            gainThisWeek = -5.0,
-            gainLastWeek = 50.0,
-            dailyGains = listOf(3000.0, -2500.0, 1250.0, 4950.0, -4000.0, 2500.0, 2700.0),
-            horizontalLabels = listOf("M", "T", "W", "TH", "F", "S", "SU"),
-        )
+        Column(verticalArrangement = Arrangement.spacedBy(30.dp)) {
+            WeekBarGraphBox(
+                gain = 20.0,
+                gainThisWeek = -5.0,
+                gainLastWeek = 50.0,
+                dailyGains = listOf(3000.0, -2500.0, 1250.0, 4950.0, -4000.0, 2500.0, 2700.0),
+                modifier = Modifier.fillMaxWidth(),
+            )
+            MonthBarGraphBox(
+                gain = 20.0,
+                gainThisMonth = -5.0,
+                gainLastMonth = 50.0,
+                weeklyGains = listOf(3000.0, -2500.0, 1250.0, 4950.0),
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
     }
 }
+
 
 private fun valueToColor(amount: Double) =
     if (amount > 0) GainGreen else CostRed

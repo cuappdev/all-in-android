@@ -35,7 +35,8 @@ import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.ui.components.bet_tracker.BetTrackerInfoCard
 import com.appdev.all_in_android.ui.components.bet_tracker.ContractCard
 import com.appdev.all_in_android.ui.components.bet_tracker.HorizontalContractCard
-import com.appdev.all_in_android.ui.components.profile.BarGraphBox
+import com.appdev.all_in_android.ui.components.profile.MonthBarGraphBox
+import com.appdev.all_in_android.ui.components.profile.WeekBarGraphBox
 import com.appdev.all_in_android.ui.theme.AllinandroidTheme
 import com.appdev.all_in_android.util.toDollarString
 import kotlin.time.Duration
@@ -55,7 +56,7 @@ fun BetTrackerScreen(
     pastBets: List<Contract>,
     modifier: Modifier = Modifier,
 ) {
-    var selectedIndex by remember { mutableIntStateOf(0) }
+    var weeklyOrMonthly by remember { mutableIntStateOf(0) }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -90,8 +91,8 @@ fun BetTrackerScreen(
                                     index = index,
                                     count = options.size
                                 ),
-                                onClick = { selectedIndex = index },
-                                selected = index == selectedIndex,
+                                onClick = { weeklyOrMonthly = index },
+                                selected = index == weeklyOrMonthly,
                                 label = {
                                     Text(
                                         text = label, fontSize = 12.sp,
@@ -117,14 +118,32 @@ fun BetTrackerScreen(
                 }
             }
             item {
-                BarGraphBox(
-                    modifier = Modifier.fillMaxWidth(),
-                    gain = 20.0,
-                    gainThisWeek = -5.0,
-                    gainLastWeek = 50.0,
-                    dailyGains = listOf(3000.0, -2500.0, 1250.0, 4950.0, -4000.0, 2500.0, 2700.0),
-                    horizontalLabels = listOf("M", "T", "W", "TH", "F", "S", "SU"),
-                )
+                if (weeklyOrMonthly == 0) {
+                    // todo remove dummy data
+                    WeekBarGraphBox(
+                        gain = 20.0,
+                        gainThisWeek = -5.0,
+                        gainLastWeek = 50.0,
+                        dailyGains = listOf(
+                            3000.0,
+                            -2500.0,
+                            1250.0,
+                            4950.0,
+                            -4000.0,
+                            2500.0,
+                            2700.0
+                        ),
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                } else {
+                    MonthBarGraphBox(
+                        gain = 20.0,
+                        gainThisMonth = -5.0,
+                        gainLastMonth = 50.0,
+                        weeklyGains = listOf(3000.0, -2500.0, 1250.0, 4950.0),
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
             }
             item {
                 Column(

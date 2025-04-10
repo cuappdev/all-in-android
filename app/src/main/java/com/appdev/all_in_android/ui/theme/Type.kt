@@ -1,7 +1,7 @@
 package com.appdev.all_in_android.ui.theme
 
 import androidx.compose.material3.Typography
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -17,42 +17,33 @@ val provider = GoogleFont.Provider(
 )
 val fontName = GoogleFont("Lexend Deca")
 val fontFamily = FontFamily(
-    Font(
-        googleFont = fontName,
-        fontProvider = provider,
-        weight = FontWeight.Bold,
-        style = FontStyle.Italic
-    )
+    Font(R.font.lexend_deca_semibold, weight = FontWeight.SemiBold),
+    Font(R.font.lexend_deca_medium, weight = FontWeight.Medium),
+    Font(R.font.lexend_deca_regular, weight = FontWeight.Normal),
+    Font(R.font.lexend_deca_light, weight = FontWeight.Light),
 )
 
-// Set of Material typography styles to start with
+
+private val defaultTypography = Typography()
 val Typography = Typography(
-    bodyLarge = TextStyle(
+    displayLarge = defaultTypography.displayLarge.copy(fontFamily = fontFamily),
+    displayMedium = defaultTypography.displayMedium.copy(fontFamily = fontFamily),
+    displaySmall = defaultTypography.displaySmall.copy(fontFamily = fontFamily),
 
-        fontFamily = fontFamily,
+    headlineLarge = defaultTypography.headlineLarge.copy(fontFamily = fontFamily),
+    headlineMedium = defaultTypography.headlineMedium.copy(fontFamily = fontFamily),
+    headlineSmall = defaultTypography.headlineSmall.copy(fontFamily = fontFamily),
 
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
+    titleLarge = defaultTypography.titleLarge.copy(fontFamily = fontFamily),
+    titleMedium = defaultTypography.titleMedium.copy(fontFamily = fontFamily),
+    titleSmall = defaultTypography.titleSmall.copy(fontFamily = fontFamily),
 
-    ),
-//     Other default text styles to override
+    bodyLarge = defaultTypography.bodyLarge.copy(fontFamily = fontFamily),
+    bodyMedium = defaultTypography.bodyMedium.copy(fontFamily = fontFamily),
+    bodySmall = defaultTypography.bodySmall.copy(fontFamily = fontFamily),
 
-    titleLarge = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
-    ),
-    labelSmall = TextStyle(
-        fontFamily = fontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
-    )
-//    */
+    labelLarge = defaultTypography.labelLarge.copy(fontFamily = fontFamily),
+    labelMedium = defaultTypography.labelMedium.copy(fontFamily = fontFamily),
+    labelSmall = defaultTypography.labelSmall.copy(fontFamily = fontFamily)
+
 )
-

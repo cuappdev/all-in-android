@@ -25,7 +25,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.appdev.all_in_android.R
 import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.ui.components.general.AllInTopBar
-import com.appdev.all_in_android.ui.components.general.PlayerCard
 import com.appdev.all_in_android.ui.viewmodel.MarketplaceViewModel
 
 data class PlayerChest(
@@ -84,7 +83,8 @@ fun HomeScreen(
             SectionRow(
                 title = "Marketplace",
                 Cards = MarketContracts,
-                height = 300)
+                height = 300
+            )
         }
     }
 }
@@ -111,9 +111,9 @@ private fun <T> SectionRow(
             contentPadding = PaddingValues(
                 end = 16.dp
             )
-        ){
+        ) {
             items(Cards) { card ->
-                when(card){
+                when (card) {
 //                    is PlayerChest -> {
 //                        PlayerChestCard(
 //                            id = card.id,
@@ -144,66 +144,78 @@ private fun <T> SectionRow(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    val contracts = listOf<Contract>(
+    val contracts = listOf(
         Contract(
             "1",
             "John Doe",
             R.drawable.player_photo,
+            "UPenn",
             "VS 04/26",
             4,
             "FGA",
-            1000,
-            2000
+            1000.0,
+            2000.0,
+            sport = "Men's Basketball"
         ),
         Contract(
             "2",
             "Jane Doe",
             R.drawable.player_photo,
+            "UPenn",
             "VS 04/26",
             4,
             "FGA",
-            1000,
-            2000
+            1000.0,
+            2000.0,
+            sport = "Men's Basketball"
         ),
         Contract(
             "3",
             "John Doe",
             R.drawable.player_photo,
+            "UPenn",
             "VS 04/26",
             4,
             "FGA",
-            1000,
-            2000
+            1000.0,
+            2000.0,
+            sport = "Men's Basketball"
         ),
         Contract(
             "4",
             "Jane Doe",
             R.drawable.player_photo,
+            "UPenn",
             "VS 04/26",
             4,
             "FGA",
-            1000,
-            2000
+            1000.0,
+            2000.0,
+            sport = "Men's Basketball"
         ),
         Contract(
             "5",
             "John Doe",
             R.drawable.player_photo,
+            "UPenn",
             "VS 04/26",
             4,
             "FGA",
-            1000,
-            2000
+            1000.0,
+            2000.0,
+            sport = "Men's Basketball"
         ),
         Contract(
             "6",
             "Jane Doe",
             R.drawable.player_photo,
+            "UPenn",
             "VS 04/26",
             4,
             "FGA",
-            1000,
-            2000
+            1000.0,
+            2000.0,
+            sport = "Men's Basketball"
         ),
 
         )

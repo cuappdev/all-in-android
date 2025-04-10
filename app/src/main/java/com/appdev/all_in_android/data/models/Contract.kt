@@ -10,8 +10,8 @@ data class Contract(
     val dateOfGame: String,
     val actionQuantity: Int,
     val actionType: String,
-    val cost: Int,
-    val gain: Int,
+    val cost: Double,
+    val gain: Double,
     val sport: String
 )
 
@@ -30,8 +30,8 @@ object ContractRepo {
             "4/26/24",
             4,
             "FGA",
-            1000,
-            2400,
+            1000.0,
+            2400.0,
             "Men's Basketball"
         ),
         Contract(
@@ -42,8 +42,8 @@ object ContractRepo {
             "4/26/24",
             4,
             "FGA",
-            1400,
-            1600,
+            1400.0,
+            1600.0,
             "Men's Basketball"
         ),
         Contract(
@@ -54,8 +54,8 @@ object ContractRepo {
             "4/26/24",
             4,
             "FGA",
-            1000,
-            2400,
+            1000.0,
+            2400.0,
             "Men's Basketball"
         ),
         Contract(
@@ -66,8 +66,8 @@ object ContractRepo {
             "4/26/24",
             4,
             "FGA",
-            1000,
-            2400,
+            1000.0,
+            2400.0,
             "Men's Basketball"
         ),
         Contract(
@@ -78,8 +78,8 @@ object ContractRepo {
             "4/26/24",
             4,
             "FGA",
-            1400,
-            1600,
+            1400.0,
+            1600.0,
             "Men's Hockey"
         )
     )

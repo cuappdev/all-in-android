@@ -37,6 +37,7 @@ fun BetCard(
     cost: Double,
     gain: Double,
     playerImageUrl: String = "",
+    onClick: () -> Unit = {}
 ){
     Row(
         modifier = Modifier

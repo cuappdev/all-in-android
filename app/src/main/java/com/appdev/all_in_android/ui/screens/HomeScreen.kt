@@ -1,14 +1,20 @@
 package com.appdev.all_in_android.ui.screens
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -19,6 +25,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -26,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appdev.all_in_android.R
+import com.appdev.all_in_android.ui.components.general.BetCard
 
 
 data class ActiveBet(
@@ -69,6 +77,12 @@ fun HomeScreen() {
             gain = 40.00
         )
     )
+    val sportsList = listOf(
+        Pair("Basketball", R.drawable.ic_basketball),
+        Pair("Hockey", R.drawable.ic_basketball),
+        Pair("Lacrosse", R.drawable.ic_basketball),
+        Pair("Football", R.drawable.ic_basketball)
+    )
     Scaffold(
         topBar = {
             HomeTopBar({})
@@ -81,17 +95,92 @@ fun HomeScreen() {
                 .fillMaxSize()
                 .padding(
                     top = innerPadding.calculateTopPadding() + 12.dp,
-                    start = 24.dp,
-                    end = 24.dp,
                 )
         ){
             UserMoneyDisplay(playerMoney)
             HeaderButton(title = "My Active Bets")
+            ActiveBetsRow(activeBets)
+            SportsRow(sportsList)
+            Text(
+                text = "Rarity",
+                color = Color.White,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 16.sp,
+                modifier = Modifier.padding(horizontal = 24.dp)
+            )
 
         }
 
     }
 
+}
+
+@Composable
+private fun SportsRow(sportsList: List<Pair<String, Int>>) {
+    LazyRow(
+        contentPadding = PaddingValues(
+            horizontal = 24.dp
+        ),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        items(sportsList) { sport ->
+            val gradientBrush = Brush.linearGradient(
+                colors = listOf(
+                    Color(0xFF1F70C7),
+                    Color(0xFF7DF3FE),
+                    Color(0xFF887DFE),
+                    Color(0xFF7D97FE)
+                )
+            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier
+                    .border(
+                        width = 1.dp,
+                        brush = gradientBrush,
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                    .padding(
+                        vertical = 4.dp,
+                        horizontal = 12.dp
+                    )
+            ) {
+                Icon(
+                    painter = painterResource(sport.second),
+                    contentDescription = sport.first,
+                    tint = Color.Unspecified
+                )
+                Text(
+                    text = sport.first,
+                    color = Color.White,
+                    fontSize = 14.sp
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ActiveBetsRow(activeBets: List<ActiveBet>) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        contentPadding = PaddingValues(
+            horizontal = 24.dp
+        )
+    ) {
+        items(activeBets) { bet ->
+            BetCard(
+                title = bet.title,
+                date = bet.date,
+                sport = bet.sport,
+                bettingLine = bet.bettingLine,
+                cost = bet.cost,
+                gain = bet.gain,
+                playerImageUrl = bet.playerImageUrl
+            )
+        }
+    }
 }
 
 @Composable
@@ -102,6 +191,7 @@ private fun HeaderButton(
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(horizontal = 24.dp)
             .clickable(
                 onClick = onClick
             ),
@@ -114,7 +204,7 @@ private fun HeaderButton(
         Text(
             text = title,
             color = Color.White,
-            fontSize = 20.sp,
+            fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold
         )
         Icon(
@@ -132,7 +222,8 @@ private fun HeaderButton(
 private fun UserMoneyDisplay(playerMoney: Int) {
     Row(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(
             7.dp,

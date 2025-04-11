@@ -63,6 +63,7 @@ fun BetCard(
             Spacer(Modifier.width(16.dp))
             BetCardInfoBody(title, date, sport, bettingLine)
         }
+        Spacer(modifier = Modifier.width(12.dp))
         CostGainTextBody(cost, gain)
     }
 
@@ -79,21 +80,21 @@ private fun BetCardInfoBody(
         Text(
             text = title,
             fontSize = 16.sp,
-            fontWeight = FontWeight.Medium,
+            fontWeight = FontWeight.Normal,
             color = Color.White
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = "$date | $sport",
             fontSize = 12.sp,
-            fontWeight = FontWeight.Medium,
+            fontWeight = FontWeight.Normal,
             color = Color.White
         )
         Spacer(modifier = Modifier.height(1.dp))
         Text(
             text = bettingLine,
             fontSize = 12.sp,
-            fontWeight = FontWeight.Medium,
+            fontWeight = FontWeight.Normal,
             color = Color.White
         )
     }

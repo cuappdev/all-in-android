@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -55,7 +56,9 @@ fun NavigationSetup() {
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController, tabItems: List<NavigationItem>) {
-    NavigationBar() {
+    NavigationBar(
+        containerColor = Color(0xFF15141B)
+    ) {
         val currentRoute = currentRoute(navController)
         tabItems.forEach { item ->
             BottomNavigationItem(

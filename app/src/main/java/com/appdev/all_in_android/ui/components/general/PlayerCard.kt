@@ -39,7 +39,6 @@ fun PlayerCard(
     Column(
         modifier = Modifier
             .width(103.dp)
-            .height(131.dp)
             .gradientBorder()
             .background(
                 color = Color(0xFF201E2D),

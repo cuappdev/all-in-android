@@ -192,8 +192,8 @@ fun HomeScreen() {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(
-                    top = innerPadding.calculateTopPadding() + 12.dp,
-                    bottom = 120.dp
+                    top = innerPadding.calculateTopPadding(),
+                    bottom = innerPadding.calculateBottomPadding()
                 )
                 .verticalScroll(rememberScrollState())
         ){
@@ -224,7 +224,6 @@ fun RankingList(rankingInfoList: List<RankingInfo>) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(345.dp)
             .padding(
                 horizontal = 24.dp
             )
@@ -242,7 +241,6 @@ fun RankingList(rankingInfoList: List<RankingInfo>) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(54.dp)
                         .gradientBorder()
                         .padding(10.dp),
                     verticalAlignment = Alignment.CenterVertically,
@@ -338,9 +336,10 @@ private fun RarityPacksGrid(rarityPackList: List<Pair<String, () -> Unit>>) {
     LazyHorizontalGrid(
         rows = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(17.dp),
-        contentPadding = PaddingValues(horizontal = 24.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = Modifier.height(390.dp)
+        modifier = Modifier
+            .height(400.dp)
+            .padding(horizontal = 24.dp)
     ) {
         items(rarityPackList) { rarityPack ->
             RarityPack(

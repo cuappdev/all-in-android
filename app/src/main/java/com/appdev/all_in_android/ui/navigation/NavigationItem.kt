@@ -48,6 +48,7 @@ enum class Routes(override var route: String) : NavUnit {
     HOME("Home"),
     MARKETPLACE("Marketplace"),
     MARKETPLACE_FAQ("Marketplace FAQ"),
+    CART("Cart"),
     BET_TRACKER("Bet Tracker"),
     BET_TRACKER_FAQ("Bet Tracker FAQ"),
     SELL_CONTRACT("Sell Contract"),

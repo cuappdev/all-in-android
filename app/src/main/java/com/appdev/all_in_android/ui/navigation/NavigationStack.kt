@@ -22,8 +22,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.appdev.all_in_android.data.models.ContractRepo.players
+import com.appdev.all_in_android.data.repositories.marketplaceFAQ
 import com.appdev.all_in_android.ui.screens.BetTrackerFAQScreen
 import com.appdev.all_in_android.ui.screens.BetTrackerScreen
+import com.appdev.all_in_android.ui.screens.CartScreen
 import com.appdev.all_in_android.ui.screens.ContractSuccessScreen
 import com.appdev.all_in_android.ui.screens.HomeScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceFAQScreen
@@ -111,7 +113,9 @@ fun SetupNavHost(
         startDestination = Routes.HOME.route
     ) {
         composable(Routes.HOME.route) {
-            HomeScreen()
+            HomeScreen(
+                toCart = {navController.navigate("Cart")}
+            )
         }
         composable(Routes.MARKETPLACE.route) {
             MarketplaceScreen(
@@ -141,6 +145,9 @@ fun SetupNavHost(
                 pastBets = players,
                 navController = navController
             )
+        }
+        composable(Routes.CART.route){
+            CartScreen(wealth = 1000, homeContracts = players, marketplaceContracts = players, {navController.popBackStack()})
         }
         composable(Routes.BET_TRACKER_FAQ.route){
             BetTrackerFAQScreen(navBack = { navController.popBackStack() })

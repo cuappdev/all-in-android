@@ -38,6 +38,7 @@ fun CartScreen(
     wealth: Int,
     homeContracts: List<Contract>,
     marketplaceContracts: List<Contract>,
+    navBack: () -> Unit
 ) {
     var homeBetsTotal = 0
     var marketplaceBetsTotal = 0
@@ -50,7 +51,7 @@ fun CartScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         //verticalArrangement = Arrangement.SpaceBetween
     ) {
-        CardHeader(wealth)
+        CardHeader(wealth, {navBack})
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Absolute.SpaceBetween,
@@ -122,12 +123,12 @@ fun CartScreen(
         }
 
         //TODO: replace 0 with contract potential wins
-        CartTotal(homeBetsTotal, marketplaceBetsTotal, 0)
+        CartTotal(homeBetsTotal, marketplaceBetsTotal, 0, {navBack()})
     }
 }
 
 @Preview
 @Composable
 fun CartScreenPreview() {
-    CartScreen(1000, players, players.subList(2, 4) )
+    CartScreen(1000, players, players.subList(2, 4), {} )
 }

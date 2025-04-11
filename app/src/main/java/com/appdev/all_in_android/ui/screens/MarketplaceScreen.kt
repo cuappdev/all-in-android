@@ -2,6 +2,7 @@ package com.appdev.all_in_android.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,17 +37,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.appdev.all_in_android.R
 import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.ui.components.bet_tracker.ContractCard
 import com.appdev.all_in_android.ui.components.marketplace.WideContractCard
-import com.appdev.all_in_android.ui.theme.AllinandroidTheme
+import com.appdev.all_in_android.ui.navigation.Routes
 import com.appdev.all_in_android.ui.theme.fontFamily
 import com.appdev.all_in_android.ui.theme.gradientBrush
-import com.appdev.all_in_android.util.myFavoriteContract
 import com.appdev.all_in_android.util.toCurrency
 
 @Composable
@@ -55,7 +55,8 @@ fun MarketplaceScreen(
     currentAmount: Double,
     recommendedContracts: List<Contract>,
     contractsEndingToday: List<Contract>,
-    allContracts: List<Contract>
+    allContracts: List<Contract>,
+    navController: NavController
 ) {
     Column(
         modifier = modifier
@@ -63,7 +64,9 @@ fun MarketplaceScreen(
             .padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        Header()
+        Header(
+            navController
+        )
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             verticalArrangement = Arrangement.spacedBy(24.dp),
@@ -225,7 +228,9 @@ fun SearchBar(
 
 
 @Composable
-private fun Header() {
+private fun Header(
+    navController: NavController
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -239,29 +244,36 @@ private fun Header() {
                 lineHeight = 24.sp,
                 fontWeight = FontWeight.SemiBold
             )
-            Image(
-                painter = painterResource(R.drawable.question_mark),
-                contentDescription = "question mark"
-            )
+            Box(
+                modifier = Modifier.clickable(onClick = {
+                    navController.navigate(
+                        Routes.MARKETPLACE_FAQ.route
+                    )
+                })
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.question_mark),
+                    contentDescription = "question mark"
+                )
+            }
+
         }
     }
 }
 
-@Preview
-@Composable
-fun MarketplaceScreenPreview() {
-    AllinandroidTheme {
-        MarketplaceScreen(
-            currentAmount = 1000.0,
-            recommendedContracts = List(3) {
-                myFavoriteContract
-            },
-            contractsEndingToday = List(3) {
-                myFavoriteContract
-            },
-            allContracts = List(10) { myFavoriteContract }
-
-
-        )
-    }
-}
+//@Preview
+//@Composable
+//fun MarketplaceScreenPreview() {
+//    AllinandroidTheme {
+//        MarketplaceScreen(
+//            currentAmount = 1000.0,
+//            recommendedContracts = List(3) {
+//                myFavoriteContract
+//            },
+//            contractsEndingToday = List(3) {
+//                myFavoriteContract
+//            },
+//            allContracts = List(10) { myFavoriteContract }
+//        )
+//    }
+//}

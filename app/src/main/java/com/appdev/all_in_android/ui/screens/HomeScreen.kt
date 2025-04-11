@@ -180,7 +180,6 @@ private fun ActiveBetsRow(activeBets: List<ActiveBet>) {
                 cost = bet.cost,
                 gain = bet.gain,
                 playerImageUrl = bet.playerImageUrl,
-                onClick = {}
             )
         }
     }

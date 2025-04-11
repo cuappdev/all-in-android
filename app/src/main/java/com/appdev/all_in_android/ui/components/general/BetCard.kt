@@ -34,8 +34,10 @@ fun BetCard(
     cost: Double,
     gain: Double,
     playerImageUrl: String = "",
-    onClick: () -> Unit
-) {
+){
+    val gradientBrush = Brush.linearGradient(
+        colors = listOf(Color(0xFF1F70C7), Color(0xFF7DF3FE), Color(0xFF887DFE), Color(0xFF7D97FE))
+    )
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -44,10 +46,7 @@ fun BetCard(
                 color = Color(0xFF201E2D),
                 shape = RoundedCornerShape(8.dp)
             )
-            .padding(16.dp)
-            .clickable(
-                onClick = onClick
-            ),
+            .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -130,5 +129,5 @@ private fun BetCardPreview() {
         bettingLine = "Scores first goal of game",
         cost = 20.00,
         gain = 40.00
-    ) {}
+    )
 }

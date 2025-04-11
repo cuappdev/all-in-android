@@ -29,5 +29,3 @@ val Primary = Color(0xFF1F70C7)
 val Secondary = Color(0xFF99C5F4)
 val Background1 = Color(0xFF15141B)
 val Background2 = Color(0xFF201E2D)
-
-

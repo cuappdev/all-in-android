@@ -34,6 +34,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appdev.all_in_android.R
 import com.appdev.all_in_android.ui.components.general.BetCard
+import com.appdev.all_in_android.data.models.Contract
+
 
 
 data class ActiveBet(

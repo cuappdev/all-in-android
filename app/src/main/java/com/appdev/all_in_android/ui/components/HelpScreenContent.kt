@@ -2,7 +2,9 @@ package com.appdev.all_in_android.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,7 +28,8 @@ import com.appdev.all_in_android.ui.theme.backgroundBlue
 fun HelpScreenContent(
     heading: String,
     subtext: String,
-    questionsList: List<HelpCardData>
+    questionsList: List<HelpCardData>,
+    navBack: () -> Unit
 ){
     Column(
         modifier = Modifier
@@ -36,10 +39,14 @@ fun HelpScreenContent(
     ) {
         Spacer(modifier = Modifier.height(44.dp))
 
-        Image(
-            painter = painterResource(R.drawable.ic_back_arrow),
-            contentDescription = "back arrow"
-        )
+        Box(
+            modifier = Modifier.clickable(onClick = {navBack()})
+        ){
+            Image(
+                painter = painterResource(R.drawable.ic_back_arrow),
+                contentDescription = "back arrow"
+            )
+        }
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -74,5 +81,5 @@ private fun HelpScreenContentPreview(){
         HelpCardData("What is sports betting?", body),
         HelpCardData("Another Question", body)
     )
-    HelpScreenContent("How can we help?", "Frequently Asked Questions", questions)
+    HelpScreenContent("How can we help?", "Frequently Asked Questions", questions, {})
 }

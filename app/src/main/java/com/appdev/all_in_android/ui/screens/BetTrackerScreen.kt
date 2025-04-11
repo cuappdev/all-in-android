@@ -61,153 +61,172 @@ fun BetTrackerScreen(
         modifier = modifier
             .fillMaxSize()
             .padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(
-                text = "Your Bet Tracker",
-                fontSize = 24.sp,
-                color = Color.White,
-                fontWeight = FontWeight(600)
-            )
-            Image(
-                painter = painterResource(R.drawable.question_mark),
-                contentDescription = "question mark",
-            )
-        }
-        var selectedTabIndex by remember { mutableIntStateOf(1) }
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(24.dp)) {
-            item {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    val options = listOf("Weekly", "Monthly")
-                    SingleChoiceSegmentedButtonRow {
-                        options.forEachIndexed { index, label ->
-                            SegmentedButton(
-                                shape = SegmentedButtonDefaults.itemShape(
-                                    index = index,
-                                    count = options.size
-                                ),
-                                onClick = { weeklyOrMonthly = index },
-                                selected = index == weeklyOrMonthly,
-                                label = {
-                                    Text(
-                                        text = label, fontSize = 12.sp,
-                                        fontWeight = FontWeight.Medium
-                                    )
-                                }
+        Column(
+            modifier = modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
+        ) {
+            Header()
+            var selectedTabIndex by remember { mutableIntStateOf(1) }
+            LazyColumn(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(24.dp)
+            ) {
+                item {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        val options = listOf("Weekly", "Monthly")
+                        SingleChoiceSegmentedButtonRow {
+                            options.forEachIndexed { index, label ->
+                                SegmentedButton(
+                                    shape = SegmentedButtonDefaults.itemShape(
+                                        index = index,
+                                        count = options.size
+                                    ),
+                                    onClick = { weeklyOrMonthly = index },
+                                    selected = index == weeklyOrMonthly,
+                                    label = {
+                                        Text(
+                                            text = label, fontSize = 12.sp,
+                                            fontWeight = FontWeight.Medium
+                                        )
+                                    }
+                                )
+                            }
+                        }
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(7.dp)
+                        ) {
+                            Image(
+                                painter = painterResource(R.drawable.currency),
+                                contentDescription = "currency",
+                            )
+                            Text(
+                                text = currentAmount.toString(),
+                                color = Color.White,
+                                fontWeight = FontWeight.Medium
                             )
                         }
                     }
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(7.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(R.drawable.currency),
-                            contentDescription = "currency",
+                }
+                item {
+                    if (weeklyOrMonthly == 0) {
+                        // todo remove dummy data
+                        WeekBarGraphBox(
+                            gain = 20.0,
+                            gainThisWeek = -5.0,
+                            gainLastWeek = 50.0,
+                            dailyGains = listOf(
+                                3000.0,
+                                -2500.0,
+                                1250.0,
+                                4950.0,
+                                -4000.0,
+                                2500.0,
+                                2700.0
+                            ),
+                            modifier = Modifier.fillMaxWidth(),
                         )
+                    } else {
+                        MonthBarGraphBox(
+                            gain = 20.0,
+                            gainThisMonth = -5.0,
+                            gainLastMonth = 50.0,
+                            weeklyGains = listOf(3000.0, -2500.0, 1250.0, 4950.0),
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    }
+                }
+                item {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(20.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            BetTrackerInfoCard(
+                                titleText = "Total Profit",
+                                bodyText = toDollarString(totalProfit, toInt = true)
+                            )
+                            BetTrackerInfoCard(
+                                titleText = "Ranking No.",
+                                bodyText = ranking.toString()
+                            )
+                        }
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            BetTrackerInfoCard(
+                                titleText = "No. of Contracts Sold",
+                                bodyText = contractsSold.toString()
+                            )
+                            BetTrackerInfoCard(
+                                titleText = "Age of Account",
+                                bodyText = ageOfAccount.toString()
+                            )
+                        }
+                    }
+                }
+                item {
+                    Row(modifier = Modifier.padding(4.dp)) {
                         Text(
-                            text = currentAmount.toString(),
+                            text = "Recommended Marketplace Contracts",
                             color = Color.White,
+                            fontSize = 16.sp,
                             fontWeight = FontWeight.Medium
                         )
-                    }
-                }
-            }
-            item {
-                if (weeklyOrMonthly == 0) {
-                    // todo remove dummy data
-                    WeekBarGraphBox(
-                        gain = 20.0,
-                        gainThisWeek = -5.0,
-                        gainLastWeek = 50.0,
-                        dailyGains = listOf(
-                            3000.0,
-                            -2500.0,
-                            1250.0,
-                            4950.0,
-                            -4000.0,
-                            2500.0,
-                            2700.0
-                        ),
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                } else {
-                    MonthBarGraphBox(
-                        gain = 20.0,
-                        gainThisMonth = -5.0,
-                        gainLastMonth = 50.0,
-                        weeklyGains = listOf(3000.0, -2500.0, 1250.0, 4950.0),
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                }
-            }
-            item {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(20.dp)
-                ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        BetTrackerInfoCard(
-                            titleText = "Total Profit",
-                            bodyText = toDollarString(totalProfit, toInt = true)
-                        )
-                        BetTrackerInfoCard(titleText = "Ranking No.", bodyText = ranking.toString())
-                    }
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        BetTrackerInfoCard(
-                            titleText = "No. of Contracts Sold",
-                            bodyText = contractsSold.toString()
-                        )
-                        BetTrackerInfoCard(
-                            titleText = "Age of Account",
-                            bodyText = ageOfAccount.toString()
-                        )
-                    }
-                }
-            }
-            item {
-                Row(modifier = Modifier.padding(4.dp)) {
-                    Text(
-                        text = "Recommended Marketplace Contracts",
-                        color = Color.White,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Medium
-                    )
 
-                    Image(
-                        painter = painterResource(R.drawable.baseline_chevron_right_24),
-                        contentDescription = "right button",
-                    )
-                }
-            }
-            item {
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    items(recommendedContracts) {
-                        ContractCard(it, onClick = {})
+                        Image(
+                            painter = painterResource(R.drawable.baseline_chevron_right_24),
+                            contentDescription = "right button",
+                        )
                     }
                 }
-            }
-            item {
-                TabRow(selectedTabIndex, { selectedTabIndex = it })
-            }
-            val bets = if (selectedTabIndex == 0) activeBets else pastBets
-            items(bets) {
-                HorizontalContractCard(contract = it, onClick = {})
+                item {
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        items(recommendedContracts) {
+                            ContractCard(it, onClick = {})
+                        }
+                    }
+                }
+                item {
+                    TabRow(selectedTabIndex, { selectedTabIndex = it })
+                }
+                val bets = if (selectedTabIndex == 0) activeBets else pastBets
+                items(bets) {
+                    HorizontalContractCard(contract = it, onClick = {})
+                }
             }
         }
-        // bottom navigation
+//        BottomBar(modifier = Modifier.fillMaxWidth())
+    }
+}
+
+@Composable
+private fun Header() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = "Your Bet Tracker",
+            fontSize = 24.sp,
+            color = Color.White,
+            fontWeight = FontWeight(600)
+        )
+        Image(
+            painter = painterResource(R.drawable.question_mark),
+            contentDescription = "question mark",
+        )
     }
 }
 

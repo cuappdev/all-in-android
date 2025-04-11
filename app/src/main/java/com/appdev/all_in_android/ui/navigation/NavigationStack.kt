@@ -25,6 +25,7 @@ import com.appdev.all_in_android.data.models.ContractRepo
 import com.appdev.all_in_android.ui.screens.HomeScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceScreen
 import com.appdev.all_in_android.ui.screens.ProfileScreen
+import com.appdev.all_in_android.util.myFavoriteContract
 
 @Composable
 fun NavigationSetup() {
@@ -103,7 +104,19 @@ fun SetupNavHost(
             HomeScreen()
         }
         composable(Routes.MARKETPLACE.route) {
-            MarketplaceScreen(ContractRepo.players)
+//            MarketplaceScreen(ContractRepo.players)
+            MarketplaceScreen(
+                currentAmount = 1000.0,
+                recommendedContracts = List(3) {
+                    myFavoriteContract
+                },
+                contractsEndingToday = List(3) {
+                    myFavoriteContract
+                },
+                allContracts = List(10) { myFavoriteContract }
+
+
+            )
         }
         composable(Routes.BET_TRACKER.route) {
             ProfileScreen()

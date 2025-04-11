@@ -26,7 +26,7 @@ import com.appdev.all_in_android.ui.theme.backgroundBlue
 @Composable
 fun HomeCartItem(
     rarity: String,
-    cost: Int
+    cost: Double
 ) {
     var isChecked by remember { mutableStateOf(false) }
 
@@ -70,8 +70,8 @@ fun HomeCartItem(
 fun MarketplaceCartItem(
     name: String,
     type: String,
-    cost: Int,
-    winnings: Int
+    cost: Double,
+    winnings: Double
 ) {
     var isChecked by remember { mutableStateOf(false) }
 
@@ -118,11 +118,11 @@ fun MarketplaceCartItem(
 @Preview
 @Composable
 private fun HomeCartItemPreview() {
-    HomeCartItem("Epic", 400)
+    HomeCartItem("Epic", 400.0)
 }
 
 @Preview
 @Composable
 private fun MarketplaceCartItemPreview() {
-    MarketplaceCartItem("C. Manon", "3 Pointer", 30, 80)
+    MarketplaceCartItem("C. Manon", "3 Pointer", 30.0, 80.0)
 }

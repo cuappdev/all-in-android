@@ -22,21 +22,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appdev.all_in_android.R
+import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.ui.theme.gradientBrush
 
 @Composable
 fun WideContractCard(
-    playerName: String,
-    opponentTeam: String,
-    date: String,
-    sport: String,
-    actionType: String,
-    cost: Int,
-    gain: Int
+    contract: Contract,
 ) {
+
+    val (_, playerName, playerImageId, opponentTeam, date, actionQuantity, actionType, cost, gain, sport) = contract
     Box(
         modifier = Modifier
-            .fillMaxWidth()
+            .width(345.dp)
             .background(brush = gradientBrush, shape = RoundedCornerShape(12))
     ) {
         Row(
@@ -57,16 +54,16 @@ fun WideContractCard(
                 )
                 Spacer(Modifier.width(16.dp))
                 //TODO: how to get "v. Harvard" from the contract data?
-                Column {
-                    Text(text = "${playerName} v. $opponentTeam", fontSize = 16.sp)
-                    Text(text = "$date | $sport", fontSize = 12.sp)
-                    Text(text = actionType, fontSize = 12.sp)
+                Column(modifier = Modifier.width(180.dp)) {
+                    Text(text = "$playerName v. $opponentTeam", fontSize = 16.sp)
+                    Text(text = "$date | $sport", fontSize = 12.sp, lineHeight = 12.sp)
+                    Text(text = actionType, fontSize = 12.sp, lineHeight = 12.sp)
                 }
             }
 
             Column {
                 Text("Cost: $cost", color = Color(0xFFF97066), fontSize = 12.sp)
-                Text("Gain: ${gain}", color = Color(0xFF47CD89), fontSize = 12.sp)
+                Text("Gain: $gain", color = Color(0xFF47CD89), fontSize = 12.sp)
             }
         }
     }
@@ -76,12 +73,17 @@ fun WideContractCard(
 @Composable
 private fun WideContractCardPreview() {
     WideContractCard(
-        "Jake Shane",
-        "Harvard",
-        "3/24",
-        "Men's Ice Hockey",
-        "Scores first goal of game",
-        20,
-        40
+        Contract(
+            id = "0",
+            playerName = "Jake Shane",
+            playerImageId = R.drawable.player_photo,
+            opposingTeam = "Harvard",
+            dateOfGame = "3/24",
+            actionQuantity = 1,
+            actionType = "Scores first goal of game",
+            gain = 20.0,
+            cost = 40.0,
+            sport = "Men's Ice Hockey",
+        )
     )
 }

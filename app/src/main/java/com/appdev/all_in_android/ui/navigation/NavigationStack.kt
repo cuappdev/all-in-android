@@ -1,10 +1,10 @@
 package com.appdev.all_in_android.ui.navigation
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,11 +21,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.appdev.all_in_android.data.models.ContractRepo
+import com.appdev.all_in_android.data.models.ContractRepo.players
+import com.appdev.all_in_android.ui.screens.BetTrackerFAQScreen
+import com.appdev.all_in_android.ui.screens.BetTrackerScreen
 import com.appdev.all_in_android.ui.screens.HomeScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceScreen
-import com.appdev.all_in_android.ui.screens.ProfileScreen
 import com.appdev.all_in_android.util.myFavoriteContract
+import kotlin.time.Duration.Companion.days
 
 @Composable
 fun NavigationSetup() {
@@ -48,10 +50,14 @@ fun NavigationSetup() {
         },
         containerColor = Color(0xFF15141B)
     ) { innerPadding ->
-        SetupNavHost(
-            navController = navController,
-            showBottomBar = showBottomBar
-        )
+        Box(
+            Modifier.padding(innerPadding)
+        ){
+            SetupNavHost(
+                navController = navController,
+                showBottomBar = showBottomBar
+            )
+        }
     }
 }
 
@@ -104,7 +110,6 @@ fun SetupNavHost(
             HomeScreen()
         }
         composable(Routes.MARKETPLACE.route) {
-//            MarketplaceScreen(ContractRepo.players)
             MarketplaceScreen(
                 currentAmount = 1000.0,
                 recommendedContracts = List(3) {
@@ -119,7 +124,20 @@ fun SetupNavHost(
             )
         }
         composable(Routes.BET_TRACKER.route) {
-            ProfileScreen()
+            BetTrackerScreen(
+                currentAmount = 1000.0,
+                totalProfit = 64.0,
+                ranking = 52,
+                contractsSold = 7 ,
+                ageOfAccount =  17.days,
+                recommendedContracts = players,
+                activeBets = players,
+                pastBets = players,
+                navController = navController
+            )
+        }
+        composable(Routes.BET_TRACKER_FAQ.route){
+            BetTrackerFAQScreen(navBack = { navController.popBackStack() })
         }
     }
 }

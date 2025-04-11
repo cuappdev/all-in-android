@@ -1,5 +1,6 @@
 package com.appdev.all_in_android.ui.components.cart
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.appdev.all_in_android.R
 import com.appdev.all_in_android.ui.theme.backgroundBlue
 import com.appdev.all_in_android.ui.theme.gradientBrush
@@ -32,7 +34,8 @@ import com.appdev.all_in_android.ui.theme.gradientBrush
 @Composable
 fun CardHeader(
     wealth: Int,
-    navBack: () -> Unit
+    //navBack: () -> Unit
+    navController: NavController
 ) {
     val cartTotal = 100
     val winAmt = 1540
@@ -55,7 +58,9 @@ fun CardHeader(
                 color = Color.White
             )
             Box(
-                modifier = Modifier.clickable(onClick = { navBack() })
+                modifier = Modifier
+                    .clickable(onClick = { navController.popBackStack()}),
+                contentAlignment = Alignment.Center
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_white_x_close),
@@ -88,7 +93,8 @@ fun CartTotal(
     homeBetsTotal: Int,
     marketplaceBetsTotal: Int,
     potentialWinnings: Int,
-    navBack: () -> Unit
+    //navBack: () -> Unit
+    navController: NavController
 ) {
     Column(
         modifier = Modifier
@@ -130,7 +136,7 @@ fun CartTotal(
                         shape = RoundedCornerShape(12.dp)
                     )
                     .fillMaxWidth(),
-                onClick = {navBack()},
+                onClick = {navController.popBackStack()},
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
             ) {
                 Text("Confirm to spend $${homeBetsTotal + marketplaceBetsTotal}")
@@ -147,7 +153,7 @@ fun PreviewCardHeader() {
     Column(
         modifier = Modifier.background(color = backgroundBlue)
     ) {
-        CardHeader(1000, {})
+//        CardHeader(1000, {})
         //CartTotal(80, 190, 160)
     }
 }

@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.appdev.all_in_android.R
 import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.data.models.ContractRepo.players
@@ -38,7 +39,8 @@ fun CartScreen(
     wealth: Int,
     homeContracts: List<Contract>,
     marketplaceContracts: List<Contract>,
-    navBack: () -> Unit
+    //navBack: () -> Unit
+    navController: NavController
 ) {
     var homeBetsTotal = 0
     var marketplaceBetsTotal = 0
@@ -51,7 +53,7 @@ fun CartScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         //verticalArrangement = Arrangement.SpaceBetween
     ) {
-        CardHeader(wealth, {navBack})
+        CardHeader(wealth, navController)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Absolute.SpaceBetween,
@@ -123,12 +125,12 @@ fun CartScreen(
         }
 
         //TODO: replace 0 with contract potential wins
-        CartTotal(homeBetsTotal, marketplaceBetsTotal, 0, {navBack()})
+        CartTotal(homeBetsTotal, marketplaceBetsTotal, 0, navController)
     }
 }
 
 @Preview
 @Composable
 fun CartScreenPreview() {
-    CartScreen(1000, players, players.subList(2, 4), {} )
+//    CartScreen(1000, players, players.subList(2, 4), {} )
 }

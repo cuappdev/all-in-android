@@ -26,20 +26,25 @@ import com.appdev.all_in_android.ui.theme.backgroundBlue
 
 @Composable
 fun SellContractScreen(
-
+    onBackClick: () -> Unit = {},
+    toSellSelected: () -> Unit = {}
 ) {
-    Column(modifier = Modifier
-        .background(color = backgroundBlue)
-        .padding(24.dp)
-        .fillMaxSize()) {
-
+    Column(
+        modifier = Modifier
+            .background(color = backgroundBlue)
+            .padding(24.dp)
+            .fillMaxSize()
+    ) {
         Image(
             painter = painterResource(id = R.drawable.ic_back_arrow),
             contentDescription = "Back Arrow",
             modifier = Modifier
                 .size(24.dp)
-                .clickable {  }
+                .clickable {
+                    onBackClick()
+                }
         )
+
         Spacer(Modifier.height(40.dp))
         Text(
             text = "Sell a Contract",
@@ -68,8 +73,13 @@ fun SellContractScreen(
         LazyColumn {
             items(3) {
                 BetCard(
-                    title = "Jake Shane v. Harvard", date = "3/24", sport = "Men's Ice Hockey", bettingLine = "Scores First Goal of Game",
-                    cost = 20.0, gain = 40.0, onClick = { /*TODO*/ },
+                    title = "Jake Shane v. Harvard",
+                    date = "3/24",
+                    sport = "Men's Ice Hockey",
+                    bettingLine = "Scores First Goal of Game",
+                    cost = 20.0,
+                    gain = 40.0,
+                    onClick = { toSellSelected() },
                 )
             }
         }

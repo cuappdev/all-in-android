@@ -55,7 +55,10 @@ enum class Routes(override var route: String) : NavUnit {
     SELL_CONTRACT("Sell Contract"),
     SELL_SELECTED_CONTRACT("Sell Selected Contract"),
     SELL_CONTRACT_CONFIRMATION("Sell Contract Confirmation"),
-    CONTRACT_SUCCESS("Contract Success")
+    CONTRACT_SUCCESS("Contract Success"),
+    BUY_CONTRACT("Buy Contract"),
+    BUY_CONTRACT_SUCCESS("Buy Success"),
+    ENDING_TODAY("Ending Today")
 }
 
 

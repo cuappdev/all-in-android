@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.appdev.all_in_android.R
 import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.ui.components.bet_tracker.ContractCard
@@ -95,7 +96,7 @@ fun BuyContractSuccessScreen(
             Spacer(modifier = Modifier.weight(1f))
             // Return Button
             Button(
-                onClick = onReturnClick,
+                onClick = { onReturnClick() },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp),
@@ -116,8 +117,8 @@ fun BuyContractSuccessScreen(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun BuyContractSuccessScreenPreview() {
-    BuyContractSuccessScreen()
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun BuyContractSuccessScreenPreview() {
+//    BuyContractSuccessScreen()
+//}

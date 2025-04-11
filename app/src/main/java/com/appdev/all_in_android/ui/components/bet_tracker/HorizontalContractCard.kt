@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -35,7 +36,7 @@ fun HorizontalContractCard(contract: Contract, onClick: () -> Unit) {
     val contractLine = "$actionQuantity ${actionType.capitalize(Locale.current)}"
     Row(
         modifier = Modifier
-            .width(345.dp)
+            .fillMaxWidth()
             .wrapContentHeight()
             .gradientBorder()
             .padding(16.dp)
@@ -49,7 +50,6 @@ fun HorizontalContractCard(contract: Contract, onClick: () -> Unit) {
                 contentDescription = "player image",
                 modifier = Modifier
                     .size(50.dp)
-                    .border(1.dp, Color.White)
             )
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(

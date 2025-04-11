@@ -50,7 +50,6 @@ fun ContractCard(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
             .width(160.dp)
-            .height(190.dp)
             .gradientBorder()
             .background(
                 color = Color(0xFF201E2D),
@@ -83,7 +82,6 @@ private fun ContractHeaderContent(
             contentDescription = "player image",
             modifier = Modifier
                 .size(50.dp)
-                .border(1.dp, Color.White)
         )
         ContractHeaderTextBody(contractTitle, contractDate, contractSport)
     }

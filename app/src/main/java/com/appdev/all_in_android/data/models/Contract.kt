@@ -24,7 +24,7 @@ object ContractRepo {
     val players = listOf(
         Contract(
             "111aaa",
-            "Evan Williams",
+            "Evan Smith",
             R.drawable.player_photo,
             "Harvard",
             "4/26/24",
@@ -36,7 +36,7 @@ object ContractRepo {
         ),
         Contract(
             "222bbb",
-            "Chris Manon",
+            "Chris Grey",
             R.drawable.player_photo,
             "Harvard",
             "4/26/24",
@@ -48,7 +48,7 @@ object ContractRepo {
         ),
         Contract(
             "333ccc",
-            "Nazir Williams",
+            "John Stone",
             R.drawable.player_photo,
             "Harvard",
             "4/26/24",
@@ -72,7 +72,7 @@ object ContractRepo {
         ),
         Contract(
             "555eee",
-            "Player Name",
+            "Noah Smith",
             R.drawable.player_photo,
             "Harvard",
             "4/26/24",

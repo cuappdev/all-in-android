@@ -22,6 +22,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -75,12 +76,10 @@ fun MarketplaceScreen(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     val scope = rememberCoroutineScope()
     var showBottomSheet by remember { mutableStateOf(false) }
-
-//    Scaffold(containerColor = Background1) { padding ->
     Column() {
+
         Box(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier = Modifier.fillMaxSize()
         ) {
             Column(
                 modifier = modifier
@@ -113,6 +112,7 @@ fun MarketplaceScreen(
                                     color = Color.White,
                                     fontWeight = FontWeight.Medium
                                 )
+
                             }
                         }
                     }
@@ -127,26 +127,11 @@ fun MarketplaceScreen(
                                 query = query,
                                 onQueryChanged = { query = it },
                             )
-
-                            IconButton(
-                                onClick = { showBottomSheet = true },
-                                modifier = Modifier
-                                    .background(Color.Transparent)
-                                    .size(40.dp), // Optional: size of button area
-                                colors = IconButtonDefaults.iconButtonColors(
-                                    containerColor = Color.Transparent,
-                                    contentColor = Color.Black, // Icon color
-                                    disabledContainerColor = Color.Transparent,
-                                    disabledContentColor = Color.Gray
-                                )
-                            ) {
-                                Icon(
-                                    painter = painterResource(R.drawable.filter),
-                                    contentDescription = "Filter Icon",
-                                    tint = Color.White
-                                )
-                            }
-
+                            Icon(
+                                painter = painterResource(R.drawable.filter),
+                                contentDescription = "Filter Icon",
+                                tint = Color.White
+                            )
                         }
                     }
                     item(span = { GridItemSpan(2) }) {
@@ -166,27 +151,34 @@ fun MarketplaceScreen(
                         }
                     }
                     item(span = { GridItemSpan(2) }) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                            Text(
-                                text = "Contracts Ending Today",
-                                fontSize = 16.sp,
-                                lineHeight = 16.sp,
-                                fontWeight = FontWeight.Medium,
-                                style = TextStyle(
-                                    brush = gradientBrush,
-                                    fontFamily = fontFamily
+                        Box(
+                            modifier = Modifier.clickable(onClick = { navController.navigate("Ending Today") })
+                        ) {
+                            Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                                Text(
+                                    text = "Contracts Ending Today",
+                                    fontSize = 16.sp,
+                                    lineHeight = 16.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    style = TextStyle(
+                                        brush = gradientBrush,
+                                        fontFamily = fontFamily
+                                    )
                                 )
-                            )
-                            Icon(
-                                painter = painterResource(R.drawable.baseline_chevron_right_24),
-                                contentDescription = "chevron",
-                                modifier = Modifier.drawWithCache {
-                                    onDrawWithContent {
-                                        drawContent()
-                                        drawRect(gradientBrush, blendMode = BlendMode.SrcAtop)
+                                Icon(
+                                    painter = painterResource(R.drawable.baseline_chevron_right_24),
+                                    contentDescription = "chevron",
+                                    modifier = Modifier.drawWithCache {
+                                        onDrawWithContent {
+                                            drawContent()
+                                            drawRect(
+                                                gradientBrush,
+                                                blendMode = BlendMode.SrcAtop
+                                            )
+                                        }
                                     }
-                                }
-                            )
+                                )
+                            }
                         }
                     }
                     item(span = { GridItemSpan(2) }) {
@@ -217,7 +209,7 @@ fun MarketplaceScreen(
                 )
             }
             FloatingActionButton(
-                onClick = { navController!!.navigate("Sell Contract") },
+                onClick = { navController.navigate("Sell Contract") },
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(24.dp)
@@ -298,14 +290,17 @@ fun SearchBar(
 
 @Composable
 private fun Header(
-    navController: NavController?
+    navController: NavController
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Text(
                 text = "Marketplace",
                 fontSize = 24.sp,
@@ -315,12 +310,9 @@ private fun Header(
             )
             Box(
                 modifier = Modifier.clickable(onClick = {
-
-                    if (navController != null) {
-                        navController.navigate(
-                            Routes.MARKETPLACE_FAQ.route
-                        )
-                    }
+                    navController.navigate(
+                        Routes.MARKETPLACE_FAQ.route
+                    )
                 })
             ) {
                 Icon(
@@ -334,21 +326,19 @@ private fun Header(
     }
 }
 
-@Preview
-@Composable
-fun MarketplaceScreenPreview() {
-    AllinandroidTheme {
-        MarketplaceScreen(
-            currentAmount = 1000.0,
-            recommendedContracts = List(3) {
-                myFavoriteContract
-            },
-            contractsEndingToday = List(3) {
-                myFavoriteContract
-            },
-            allContracts = List(10) { myFavoriteContract },
-            modifier = Modifier,
-            navController = null
-        )
-    }
-}
+//@Preview
+//@Composable
+//fun MarketplaceScreenPreview() {
+//    AllinandroidTheme {
+//        MarketplaceScreen(
+//            currentAmount = 1000.0,
+//            recommendedContracts = List(3) {
+//                myFavoriteContract
+//            },
+//            contractsEndingToday = List(3) {
+//                myFavoriteContract
+//            },
+//            allContracts = List(10) { myFavoriteContract }
+//        )
+//    }
+//}

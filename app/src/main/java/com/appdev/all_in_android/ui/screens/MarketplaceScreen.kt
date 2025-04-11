@@ -136,28 +136,33 @@ fun MarketplaceScreen(
                     }
                 }
                 item(span = { GridItemSpan(2) }) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                        Text(
-                            text = "Contracts Ending Today",
-                            fontSize = 16.sp,
-                            lineHeight = 16.sp,
-                            fontWeight = FontWeight.Medium,
-                            style = TextStyle(
-                                brush = gradientBrush,
-                                fontFamily = fontFamily
+                    Box(
+                        modifier = Modifier.clickable(onClick = { navController.navigate("Ending Today") })
+                    ){
+                        Row(horizontalArrangement = Arrangement.spacedBy(5.dp),) {
+                            Text(
+                                text = "Contracts Ending Today",
+                                fontSize = 16.sp,
+                                lineHeight = 16.sp,
+                                fontWeight = FontWeight.Medium,
+                                style = TextStyle(
+                                    brush = gradientBrush,
+                                    fontFamily = fontFamily
+                                )
                             )
-                        )
-                        Icon(
-                            painter = painterResource(R.drawable.baseline_chevron_right_24),
-                            contentDescription = "chevron",
-                            modifier = Modifier.drawWithCache {
-                                onDrawWithContent {
-                                    drawContent()
-                                    drawRect(gradientBrush, blendMode = BlendMode.SrcAtop)
+                            Icon(
+                                painter = painterResource(R.drawable.baseline_chevron_right_24),
+                                contentDescription = "chevron",
+                                modifier = Modifier.drawWithCache {
+                                    onDrawWithContent {
+                                        drawContent()
+                                        drawRect(gradientBrush, blendMode = BlendMode.SrcAtop)
+                                    }
                                 }
-                            }
-                        )
+                            )
+                        }
                     }
+
                 }
                 item(span = { GridItemSpan(2) }) {
                     LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {

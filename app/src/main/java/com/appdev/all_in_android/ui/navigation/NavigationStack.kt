@@ -29,6 +29,7 @@ import com.appdev.all_in_android.ui.screens.BetTrackerScreen
 import com.appdev.all_in_android.ui.screens.BuyContractSuccessScreen
 import com.appdev.all_in_android.ui.screens.CartScreen
 import com.appdev.all_in_android.ui.screens.ContractSuccessScreen
+import com.appdev.all_in_android.ui.screens.EndingTodayScreen
 import com.appdev.all_in_android.ui.screens.HomeFAQScreen
 import com.appdev.all_in_android.ui.screens.HomeScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceFAQScreen
@@ -193,6 +194,9 @@ fun SetupNavHost(
 
         composable(Routes.BUY_CONTRACT_SUCCESS.route){
             BuyContractSuccessScreen(onReturnClick = {navController.navigate("Marketplace")})
+        }
+        composable(Routes.ENDING_TODAY.route){
+            EndingTodayScreen(players, navController)
         }
     }
 }

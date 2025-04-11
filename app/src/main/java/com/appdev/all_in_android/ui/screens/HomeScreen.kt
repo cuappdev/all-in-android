@@ -41,11 +41,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.appdev.all_in_android.R
 import com.appdev.all_in_android.ui.components.general.BetCard
 import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.ui.components.general.PlayerCard
 import com.appdev.all_in_android.ui.components.general.RarityPack
+import com.appdev.all_in_android.ui.navigation.NavUnit
 import com.appdev.all_in_android.ui.theme.gradientBorder
 
 
@@ -78,7 +80,8 @@ data class RankingInfo(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    toCart: () -> Unit
+    navController: NavController,
+    //toCart: () -> Unit
 ) {
     //TODO: replace with viewmodel call
     val playerMoney = 1000
@@ -187,12 +190,12 @@ fun HomeScreen(
     )
     Scaffold(
         topBar = {
-            HomeTopBar({})
+            HomeTopBar(onClickFaq = {navController.navigate("Home FAQ")})
         },
         containerColor = Color(0xFF15141B),
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { toCart() },
+                onClick = { navController.navigate("Cart")},
                 containerColor = Color(0xff1F70C7), // Customize background color
                 contentColor = Color.White, // Icon tint
                 shape = CircleShape
@@ -500,6 +503,7 @@ private fun UserMoneyDisplay(playerMoney: Int) {
 @OptIn(ExperimentalMaterial3Api::class)
 private fun HomeTopBar(
     onClickFaq: () -> Unit = {},
+    //navController: NavController
 ) {
     TopAppBar(
         title = {
@@ -514,7 +518,7 @@ private fun HomeTopBar(
             containerColor = Color(0xFF15141B),
         ),
         actions = {
-            IconButton(onClick = onClickFaq) {
+            IconButton(onClick = {onClickFaq()}) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_question_circle),
                     contentDescription = "FAQ",
@@ -527,8 +531,8 @@ private fun HomeTopBar(
 }
 
 
-@Preview(showBackground = true)
-@Composable
-private fun HomeScreenPreview() {
-    HomeScreen({})
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun HomeScreenPreview() {
+//    HomeScreen({})
+//}

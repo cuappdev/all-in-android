@@ -1,5 +1,6 @@
 package com.appdev.all_in_android.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -60,6 +61,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.rememberCoroutineScope
+import com.appdev.all_in_android.ui.components.general.RarityIcon
 import kotlinx.coroutines.launch
 
 
@@ -200,32 +202,32 @@ fun HomeScreen(
     val rankingInfoList = listOf(
         RankingInfo(
             name = "andrewcheung",
-            money = 9000,
-            ranking = 1,
+            money = 5000,
+            ranking = 4,
             change = 4
         ),
         RankingInfo(
             name = "amywang",
-            money = 8000,
-            ranking = 2,
+            money = 4000,
+            ranking = 5,
             change = 3
         ),
         RankingInfo(
             name = "emiljiang",
-            money = 7000,
-            ranking = 3,
+            money = 3000,
+            ranking = 6,
             change = 1
         ),
         RankingInfo(
             name = "calebshim",
-            money = 6000,
-            ranking = 4,
+            money = 2000,
+            ranking = 7,
             change = 2
         ),
         RankingInfo(
-            name = "laurenjun",
-            money = 5000,
-            ranking = 5,
+            name = "jiwonjeong",
+            money = 1000,
+            ranking = 8,
             change = 3
         ),
 
@@ -236,7 +238,7 @@ fun HomeScreen(
         ModalBottomSheet(
             onDismissRequest = { showBottomSheet = false },
             sheetState = bottomSheetState,
-            containerColor = Color(0xFF201E2D)
+            containerColor = Color(0xFF15141B)
         ) {
             RarityPackBottomSheet(
                 rarity = selectedRarity,
@@ -299,7 +301,9 @@ fun HomeScreen(
             RarityPacksGrid(rarityPackList)
             HeaderButton(title = "Players", onClick = {navController.navigate("Player See All")})
             PlayerCardRow(playerCardlist)
-            HeaderButton(title = "Your Ranking")
+            HeaderButton(title = "Your Ranking", onClick = {
+                navController.navigate("Ranking")
+            })
             RankingList(rankingInfoList)
         }
     }
@@ -318,36 +322,31 @@ fun RarityPackBottomSheet(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Text(
-            text = "$rarity Pack",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.White
-        )
-
-        // Pack image/icon
-        Box(
-            modifier = Modifier
-                .size(120.dp)
-                .gradientBorder()
-                .padding(8.dp),
-            contentAlignment = Alignment.Center
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.player_photo),
-                contentDescription = "$rarity pack",
-                tint = Color.Unspecified,
-                modifier = Modifier.size(80.dp)
+            Text(
+                text = "$rarity Pack",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
             )
+            IconButton(
+                onClick = onDismiss,
+                modifier = Modifier
+                    .size(24.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_white_x_close),
+                    contentDescription = "Close",
+                    tint = Color.Unspecified
+                )
+            }
         }
 
-        // Pack description
-        Text(
-            text = getPackDescription(rarity),
-            fontSize = 14.sp,
-            color = Color.White,
-            textAlign = TextAlign.Center
-        )
+        RarityIcon(rarity)
 
         // Price
         Row(
@@ -360,37 +359,47 @@ fun RarityPackBottomSheet(
                 tint = Color.Unspecified
             )
             Text(
-                text = "$${getPackPrice(rarity)}",
+                text = "${getPackPrice(rarity)}",
                 color = Color.White,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold
+                fontSize = 20.sp,
+                fontWeight = FontWeight.ExtraBold
             )
         }
 
-        // Buttons
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Button(
-                onClick = onDismiss,
-                modifier = Modifier
-                    .weight(1f)
-                    .height(48.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2A2939))
-            ) {
-                Text("Cancel", color = Color.White)
-            }
+        // Pack description
+        Text(
+            text = getPackDescription(rarity),
+            color = Color(0xFF979797),
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Medium,
+            textAlign = TextAlign.Center
+        )
 
-            Button(
-                onClick = onBuy,
-                modifier = Modifier
-                    .weight(1f)
-                    .height(48.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1F70C7))
-            ) {
-                Text("Buy", color = Color.White)
-            }
+        val gradientBrush = Brush.linearGradient(
+            colors = listOf(
+                Color(0xFF1F70C7),
+                Color(0xFF7DF3FE),
+                Color(0xFF887DFE),
+                Color(0xFF7D97FE)
+            )
+        )
+
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(52.dp)
+                .background(
+                    brush = gradientBrush,
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .clickable(
+                    onClick = onBuy,
+                    indication = null,
+                    interactionSource = null
+                ),
+        ) {
+            Text("Buy Now", color = Color(0xFF15141B), fontSize = 16.sp, fontWeight = FontWeight.Medium)
         }
     }
 }
@@ -398,10 +407,10 @@ fun RarityPackBottomSheet(
 // Helper functions for pack information
 private fun getPackDescription(rarity: String): String {
     return when(rarity) {
-        "Common" -> "Contains 3 common player cards with a small chance of rare players."
-        "Rare" -> "Contains 3 cards with guaranteed rare players and a chance of epic players."
-        "Epic" -> "Contains 3 cards with guaranteed epic players and a chance of legendary players."
-        "Legendary" -> "Contains 3 cards with guaranteed legendary players."
+        "Common" -> "Contains a Common contract"
+        "Rare" -> "Contains a Rare contract"
+        "Epic" -> "Contains an Epic contract"
+        "Legendary" -> "Contains a Legendary contract"
         else -> "Pack contains random player cards."
     }
 }
@@ -417,12 +426,12 @@ private fun getPackPrice(rarity: String): Int {
 }
 
 @Composable
-fun RankingList(rankingInfoList: List<RankingInfo>) {
+fun RankingList(rankingInfoList: List<RankingInfo>, padding: Int = 24) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                horizontal = 24.dp
+                horizontal = padding.dp
             )
             .gradientBorder()
     ) {

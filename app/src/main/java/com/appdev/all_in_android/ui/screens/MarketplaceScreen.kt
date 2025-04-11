@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -153,9 +154,14 @@ fun MarketplaceScreen(
                         )
                     }
                     item(span = { GridItemSpan(2) }) {
-                        LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                        LazyRow(
+                            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                            modifier = Modifier.fillMaxHeight()
+                        ) {
                             items(recommendedContracts) {
-                                ContractCard(it, onClick = {})
+                                ContractCard(it, onClick = {
+                                    navController.navigate("Buy Contract")
+                                })
                             }
                         }
                     }
@@ -177,15 +183,7 @@ fun MarketplaceScreen(
                                 Icon(
                                     painter = painterResource(R.drawable.baseline_chevron_right_24),
                                     contentDescription = "chevron",
-                                    modifier = Modifier.drawWithCache {
-                                        onDrawWithContent {
-                                            drawContent()
-                                            drawRect(
-                                                gradientBrush,
-                                                blendMode = BlendMode.SrcAtop
-                                            )
-                                        }
-                                    }
+                                    tint = Color.Unspecified,
                                 )
                             }
                         }
@@ -193,7 +191,7 @@ fun MarketplaceScreen(
                     item(span = { GridItemSpan(2) }) {
                         LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                             items(contractsEndingToday) {
-                                WideContractCard(it)
+                                WideContractCard(it, {navController.navigate("Buy Contract")})
                             }
                         }
                     }
@@ -205,7 +203,7 @@ fun MarketplaceScreen(
                         )
                     }
                     items(allContracts) {
-                        ContractCard(it, onClick = {})
+                        ContractCard(it, onClick = {navController.navigate("Buy Contract")})
                     }
                 }
             }

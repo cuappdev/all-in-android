@@ -35,6 +35,7 @@ import com.appdev.all_in_android.ui.screens.HomeScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceFAQScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceScreen
 import com.appdev.all_in_android.ui.screens.PlayerSeeAllScreen
+import com.appdev.all_in_android.ui.screens.RankingsScreen
 import com.appdev.all_in_android.ui.screens.SellContractScreen
 import com.appdev.all_in_android.ui.screens.SellSelectedContractScreen
 import com.appdev.all_in_android.ui.screens.StatScreen
@@ -174,13 +175,7 @@ fun SetupNavHost(
         composable(Routes.SELL_SELECTED_CONTRACT.route){
             SellSelectedContractScreen(
                 onBackClick = {navController.popBackStack()},
-                onConfirmClick = {navController.navigate("Sell Contract Confirmation")}
-            )
-        }
-        composable(Routes.SELL_CONTRACT_CONFIRMATION.route){
-            SellSelectedContractScreen(
-                onBackClick = {navController.popBackStack()},
-                onConfirmClick = {navController.navigate("Contract Success")}
+                onConfirmClick = {navController.navigate("Contract Success")},
             )
         }
         composable(Routes.CONTRACT_SUCCESS.route){
@@ -203,6 +198,9 @@ fun SetupNavHost(
             PlayerSeeAllScreen(
                 navController
             )
+        }
+        composable(Routes.RANKING.route){
+            RankingsScreen(navController)
         }
     }
 }

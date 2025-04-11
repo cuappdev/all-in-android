@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -50,6 +51,7 @@ fun ContractCard(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
             .width(160.dp)
+            .fillMaxHeight()
             .gradientBorder()
             .background(
                 color = Color(0xFF201E2D),

@@ -3,6 +3,7 @@ package com.appdev.all_in_android.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -70,7 +71,9 @@ fun SellContractScreen(
             )
         )
         Spacer(Modifier.height(20.dp))
-        LazyColumn {
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
             items(3) {
                 BetCard(
                     title = "Jake Shane v. Harvard",

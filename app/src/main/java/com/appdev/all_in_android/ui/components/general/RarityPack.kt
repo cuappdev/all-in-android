@@ -28,12 +28,6 @@ fun RarityPack(
     rarity: String,
     onClick: () -> Unit
 ) {
-    val rarityImageId = when (rarity) {
-        "Rare" -> R.drawable.ic_rare
-        "Epic" -> R.drawable.ic_epic
-        "Legendary" -> R.drawable.ic_legendary
-        else -> R.drawable.ic_common
-    }
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -44,22 +38,7 @@ fun RarityPack(
             )
     ) {
 
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .size(164.dp)
-                .gradientBorder()
-                .background(
-                    color = Color(0xFF201E2D),
-                    shape = RoundedCornerShape(8.dp)
-                )
-        ) {
-            Icon(
-                painter = painterResource(rarityImageId),
-                contentDescription = "$rarity image",
-                tint = Color.Unspecified
-            )
-        }
+        RarityIcon(rarity)
         Text(
             text = rarity,
             fontSize = 12.sp,
@@ -68,6 +47,32 @@ fun RarityPack(
         )
     }
 
+}
+
+@Composable
+fun RarityIcon(rarity: String) {
+    val rarityImageId = when (rarity) {
+        "Rare" -> R.drawable.ic_rare
+        "Epic" -> R.drawable.ic_epic
+        "Legendary" -> R.drawable.ic_legendary
+        else -> R.drawable.ic_common
+    }
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .size(164.dp)
+            .gradientBorder()
+            .background(
+                color = Color(0xFF201E2D),
+                shape = RoundedCornerShape(8.dp)
+            )
+    ) {
+        Icon(
+            painter = painterResource(rarityImageId),
+            contentDescription = "$rarity image",
+            tint = Color.Unspecified
+        )
+    }
 }
 
 @Preview(showBackground = true)

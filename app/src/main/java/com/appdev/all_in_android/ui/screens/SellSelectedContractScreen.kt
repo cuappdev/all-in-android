@@ -122,7 +122,7 @@ fun SellSelectedContractScreen(
             contentAlignment = Alignment.Center
         ) {
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_currency_dollar_circle),
@@ -187,21 +187,21 @@ fun SellSelectedContractScreen(
 
         // Confirm Button
         Button(
-            onClick = { onConfirmClick(price.toDoubleOrNull() ?: 0.0) },
+            onClick = { onConfirmClick(price.toDoubleOrNull() ?: 100.0) },
             enabled = price.isNotBlank(),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(64.dp)
                 .padding(bottom = 24.dp),
             shape = RoundedCornerShape(8.dp),
-            contentPadding = PaddingValues()
+            contentPadding = PaddingValues(),
         ) {
             Text(
                 text = "Confirm to Sell",
                 modifier = Modifier.align(Alignment.CenterVertically),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = Color.White
+                color = Color(0xFF15141B)
             )
         }
 

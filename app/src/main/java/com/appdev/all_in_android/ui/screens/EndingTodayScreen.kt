@@ -78,7 +78,7 @@ fun EndingTodayScreen(
                 Box(
                     modifier = Modifier.clickable(onClick = {navController.navigate("Buy Contract")})
                 ){
-                    WideContractCard(contract)
+                    WideContractCard(contract, onClick = {navController.navigate("Buy Contract")})
                 }
             }
         }

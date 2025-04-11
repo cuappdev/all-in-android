@@ -35,7 +35,6 @@ import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.ui.components.bet_tracker.BetTrackerInfoCard
 import com.appdev.all_in_android.ui.components.bet_tracker.ContractCard
 import com.appdev.all_in_android.ui.components.bet_tracker.HorizontalContractCard
-import com.appdev.all_in_android.ui.components.general.BottomBar
 import com.appdev.all_in_android.ui.components.profile.MonthBarGraphBox
 import com.appdev.all_in_android.ui.components.profile.WeekBarGraphBox
 import com.appdev.all_in_android.ui.theme.AllinandroidTheme
@@ -208,7 +207,7 @@ fun BetTrackerScreen(
                 }
             }
         }
-        BottomBar(modifier = Modifier.fillMaxWidth())
+//        BottomBar(modifier = Modifier.fillMaxWidth())
     }
 }
 

@@ -34,6 +34,7 @@ fun BetCard(
     cost: Double,
     gain: Double,
     playerImageUrl: String = "",
+    onClick: () -> Unit = {}
 ){
     val gradientBrush = Brush.linearGradient(
         colors = listOf(Color(0xFF1F70C7), Color(0xFF7DF3FE), Color(0xFF887DFE), Color(0xFF7D97FE))

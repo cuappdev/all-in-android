@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -352,10 +353,10 @@ private fun PlayerCardRow(playerCardlist: List<PlayerCardInfo>) {
 
 @Composable
 private fun RarityPacksGrid(rarityPackList: List<Pair<String, () -> Unit>>) {
-    LazyHorizontalGrid(
-        rows = GridCells.Fixed(2),
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(17.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .height(400.dp)
             .padding(horizontal = 24.dp)

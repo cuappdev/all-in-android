@@ -177,7 +177,8 @@ private fun ActiveBetsRow(activeBets: List<ActiveBet>) {
                 bettingLine = bet.bettingLine,
                 cost = bet.cost,
                 gain = bet.gain,
-                playerImageUrl = bet.playerImageUrl
+                playerImageUrl = bet.playerImageUrl,
+                onClick = {}
             )
         }
     }

@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import com.appdev.all_in_android.ui.theme.gradientBorder
 
 @Composable
 fun BetCard(
@@ -40,11 +41,7 @@ fun BetCard(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .border(
-                width = 1.dp,
-                brush = gradientBrush,
-                shape = RoundedCornerShape(8.dp)
-            )
+            .gradientBorder()
             .background(
                 color = Color(0xFF201E2D),
                 shape = RoundedCornerShape(8.dp)
@@ -52,8 +49,8 @@ fun BetCard(
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
-    ){
-        Row(){
+    ) {
+        Row() {
             AsyncImage(
                 model = playerImageUrl,
                 contentDescription = "player image",
@@ -124,7 +121,7 @@ private fun CostGainTextBody(cost: Double, gain: Double) {
 
 @Preview(showBackground = true)
 @Composable
-private fun BetCardPreview(){
+private fun BetCardPreview() {
     BetCard(
         title = "Jake Shane v. Harvard",
         date = "03/24",

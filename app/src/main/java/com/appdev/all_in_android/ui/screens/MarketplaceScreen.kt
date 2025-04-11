@@ -27,6 +27,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -122,11 +123,24 @@ fun MarketplaceScreen(
                                 query = query,
                                 onQueryChanged = { query = it },
                             )
-                            Icon(
-                                painter = painterResource(R.drawable.filter),
-                                contentDescription = "Filter Icon",
-                                tint = Color.White
-                            )
+                            IconButton(
+                                onClick = { showBottomSheet = true },
+                                modifier = Modifier
+                                    .background(Color.Transparent)
+                                    .size(40.dp), // Optional: size of button area
+                                colors = IconButtonDefaults.iconButtonColors(
+                                    containerColor = Color.Transparent,
+                                    contentColor = Color.Black, // Icon color
+                                    disabledContainerColor = Color.Transparent,
+                                    disabledContentColor = Color.Gray
+                                )
+                            ) {
+                                Icon(
+                                    painter = painterResource(R.drawable.filter),
+                                    contentDescription = "Filter Icon",
+                                    tint = Color.White
+                                )
+                            }
                         }
                     }
                     item(span = { GridItemSpan(2) }) {

@@ -19,10 +19,12 @@ import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -75,7 +77,9 @@ data class RankingInfo(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    toCart: () -> Unit
+) {
     //TODO: replace with viewmodel call
     val playerMoney = 1000
     val activeBets = listOf(
@@ -185,7 +189,21 @@ fun HomeScreen() {
         topBar = {
             HomeTopBar({})
         },
-        containerColor = Color(0xFF15141B)
+        containerColor = Color(0xFF15141B),
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { toCart() },
+                containerColor = Color(0xff1F70C7), // Customize background color
+                contentColor = Color.White, // Icon tint
+                shape = CircleShape
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_cart_button),
+                    contentDescription = "FAB",
+                    tint = Color.Unspecified
+                )
+            }
+        }
     ) { innerPadding ->
         Column(
             verticalArrangement = Arrangement.spacedBy(24.dp),
@@ -214,9 +232,7 @@ fun HomeScreen() {
             HeaderButton(title = "Your Ranking")
             RankingList(rankingInfoList)
         }
-
     }
-
 }
 
 @Composable
@@ -514,5 +530,5 @@ private fun HomeTopBar(
 @Preview(showBackground = true)
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen({})
 }

@@ -34,6 +34,7 @@ import com.appdev.all_in_android.ui.screens.HomeFAQScreen
 import com.appdev.all_in_android.ui.screens.HomeScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceFAQScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceScreen
+import com.appdev.all_in_android.ui.screens.PlayerSeeAllScreen
 import com.appdev.all_in_android.ui.screens.SellContractScreen
 import com.appdev.all_in_android.ui.screens.SellSelectedContractScreen
 import com.appdev.all_in_android.ui.screens.StatScreen
@@ -197,6 +198,11 @@ fun SetupNavHost(
         }
         composable(Routes.ENDING_TODAY.route){
             EndingTodayScreen(players, navController)
+        }
+        composable(Routes.PLAYER_SEE_ALL.route){
+            PlayerSeeAllScreen(
+                navController
+            )
         }
     }
 }

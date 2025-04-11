@@ -50,6 +50,17 @@ import com.appdev.all_in_android.ui.components.general.PlayerCard
 import com.appdev.all_in_android.ui.components.general.RarityPack
 import com.appdev.all_in_android.ui.navigation.NavUnit
 import com.appdev.all_in_android.ui.theme.gradientBorder
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 
 
 data class ActiveBet(
@@ -118,42 +129,72 @@ fun HomeScreen(
         Pair("Lacrosse", R.drawable.ic_basketball),
         Pair("Football", R.drawable.ic_basketball)
     )
+
+    // Add these state variables for the bottom sheet
+    var showBottomSheet by remember { mutableStateOf(false) }
+    var selectedRarity by remember { mutableStateOf("") }
+    val bottomSheetState = rememberModalBottomSheetState()
+    val coroutineScope = rememberCoroutineScope()
+
+    // Update rarity pack onClick handlers
     val rarityPackList = listOf(
-        Pair("Common", {}),
-        Pair("Rare", {}),
-        Pair("Epic", {}),
-        Pair("Legendary", {})
+        Pair("Common") {
+            selectedRarity = "Common"
+            showBottomSheet = true
+        },
+        Pair("Rare") {
+            selectedRarity = "Rare"
+            showBottomSheet = true
+        },
+        Pair("Epic") {
+            selectedRarity = "Epic"
+            showBottomSheet = true
+        },
+        Pair("Legendary") {
+            selectedRarity = "Legendary"
+            showBottomSheet = true
+        }
     )
     val playerCardlist = listOf(
         PlayerCardInfo(
             playerName = "C. Manon",
             playerNumber = 14,
             playerPosition = "PG",
-            onClick = {}
+            onClick = {
+                navController.navigate("Buy Contract")
+            }
         ),
         PlayerCardInfo(
             playerName = "C. Manon",
             playerNumber = 14,
             playerPosition = "PG",
-            onClick = {}
+            onClick = {
+                navController.navigate("Buy Contract")
+            }
         ),
         PlayerCardInfo(
             playerName = "C. Manon",
             playerNumber = 14,
             playerPosition = "PG",
-            onClick = {}
+            onClick = {
+                navController.navigate("Buy Contract")
+            }
         ),
         PlayerCardInfo(
             playerName = "C. Manon",
             playerNumber = 14,
             playerPosition = "PG",
-            onClick = {}
+            onClick = {
+                navController.navigate("Buy Contract")
+            }
         ),
         PlayerCardInfo(
             playerName = "C. Manon",
             playerNumber = 14,
             playerPosition = "PG",
-            onClick = {}
+            onClick = {
+                navController.navigate("Buy Contract")
+            }
         )
     )
     val rankingInfoList = listOf(
@@ -189,6 +230,31 @@ fun HomeScreen(
         ),
 
     )
+
+    // Display bottom sheet when needed
+    if (showBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showBottomSheet = false },
+            sheetState = bottomSheetState,
+            containerColor = Color(0xFF201E2D)
+        ) {
+            RarityPackBottomSheet(
+                rarity = selectedRarity,
+                onBuy = {
+                    coroutineScope.launch {
+                        bottomSheetState.hide()
+                        showBottomSheet = false
+                    }
+                },
+                onDismiss = {
+                    coroutineScope.launch {
+                        bottomSheetState.hide()
+                        showBottomSheet = false
+                    }
+                }
+            )
+        }
+    }
     Scaffold(
         topBar = {
             HomeTopBar(onClickFaq = {navController.navigate("Home FAQ")})
@@ -231,11 +297,122 @@ fun HomeScreen(
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
             RarityPacksGrid(rarityPackList)
-            HeaderButton(title = "Players")
+            HeaderButton(title = "Players", onClick = {navController.navigate("Player See All")})
             PlayerCardRow(playerCardlist)
             HeaderButton(title = "Your Ranking")
             RankingList(rankingInfoList)
         }
+    }
+}
+
+@Composable
+fun RarityPackBottomSheet(
+    rarity: String,
+    onBuy: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Text(
+            text = "$rarity Pack",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White
+        )
+
+        // Pack image/icon
+        Box(
+            modifier = Modifier
+                .size(120.dp)
+                .gradientBorder()
+                .padding(8.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.player_photo),
+                contentDescription = "$rarity pack",
+                tint = Color.Unspecified,
+                modifier = Modifier.size(80.dp)
+            )
+        }
+
+        // Pack description
+        Text(
+            text = getPackDescription(rarity),
+            fontSize = 14.sp,
+            color = Color.White,
+            textAlign = TextAlign.Center
+        )
+
+        // Price
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_dollar_circle),
+                contentDescription = "Price",
+                tint = Color.Unspecified
+            )
+            Text(
+                text = "$${getPackPrice(rarity)}",
+                color = Color.White,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold
+            )
+        }
+
+        // Buttons
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Button(
+                onClick = onDismiss,
+                modifier = Modifier
+                    .weight(1f)
+                    .height(48.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2A2939))
+            ) {
+                Text("Cancel", color = Color.White)
+            }
+
+            Button(
+                onClick = onBuy,
+                modifier = Modifier
+                    .weight(1f)
+                    .height(48.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1F70C7))
+            ) {
+                Text("Buy", color = Color.White)
+            }
+        }
+    }
+}
+
+// Helper functions for pack information
+private fun getPackDescription(rarity: String): String {
+    return when(rarity) {
+        "Common" -> "Contains 3 common player cards with a small chance of rare players."
+        "Rare" -> "Contains 3 cards with guaranteed rare players and a chance of epic players."
+        "Epic" -> "Contains 3 cards with guaranteed epic players and a chance of legendary players."
+        "Legendary" -> "Contains 3 cards with guaranteed legendary players."
+        else -> "Pack contains random player cards."
+    }
+}
+
+private fun getPackPrice(rarity: String): Int {
+    return when(rarity) {
+        "Common" -> 100
+        "Rare" -> 250
+        "Epic" -> 500
+        "Legendary" -> 1000
+        else -> 0
     }
 }
 

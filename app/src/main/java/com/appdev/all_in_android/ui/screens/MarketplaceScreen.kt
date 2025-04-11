@@ -131,7 +131,9 @@ fun MarketplaceScreen(
                 item(span = { GridItemSpan(2) }) {
                     LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                         items(recommendedContracts) {
-                            ContractCard(it, onClick = {})
+                            ContractCard(it, onClick = {
+                                navController.navigate("Buy Contract")
+                            })
                         }
                     }
                 }
@@ -167,7 +169,7 @@ fun MarketplaceScreen(
                 item(span = { GridItemSpan(2) }) {
                     LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                         items(contractsEndingToday) {
-                            WideContractCard(it)
+                            WideContractCard(it, onClick = { navController.navigate("Buy Contract") })
                         }
                     }
                 }

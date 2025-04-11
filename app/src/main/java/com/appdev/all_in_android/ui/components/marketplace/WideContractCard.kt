@@ -2,6 +2,7 @@ package com.appdev.all_in_android.ui.components.marketplace
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,6 +29,7 @@ import com.appdev.all_in_android.ui.theme.gradientBrush
 @Composable
 fun WideContractCard(
     contract: Contract,
+    onClick: () -> Unit = {},
 ) {
 
     val (_, playerName, playerImageId, opponentTeam, date, actionQuantity, actionType, cost, gain, sport) = contract
@@ -35,6 +37,11 @@ fun WideContractCard(
         modifier = Modifier
             .width(345.dp)
             .background(brush = gradientBrush, shape = RoundedCornerShape(12))
+            .clickable(
+                onClick = onClick,
+                indication = null,
+                interactionSource = null
+            )
     ) {
         Row(
             modifier = Modifier

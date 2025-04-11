@@ -47,6 +47,7 @@ interface NavUnit {
 enum class Routes(override var route: String) : NavUnit {
     HOME("Home"),
     HOME_FAQ("Home FAQ"),
+    PLAYER_SEE_ALL("Player See All"),
     MARKETPLACE("Marketplace"),
     MARKETPLACE_FAQ("Marketplace FAQ"),
     CART("Cart"),

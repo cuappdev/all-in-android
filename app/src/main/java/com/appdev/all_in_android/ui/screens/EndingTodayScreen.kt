@@ -54,7 +54,15 @@ fun EndingTodayScreen(
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = "Contracts Ending Today",
+            text = "Contracts Ending",
+            fontFamily = fontFamily,
+            fontSize = 40.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Today",
             fontFamily = fontFamily,
             fontSize = 40.sp,
             fontWeight = FontWeight.Bold,

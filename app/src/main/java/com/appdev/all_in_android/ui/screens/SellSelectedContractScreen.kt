@@ -2,6 +2,7 @@ package com.appdev.all_in_android.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -63,24 +64,42 @@ fun SellSelectedContractScreen(
                 .clickable { onBackClick() }
         )
         Spacer(Modifier.height(40.dp))
-        Text(
-            text = "Jake Shane v. Harvard",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.White
-        )
-        Text(
-            text = "03/24 | Men’s Ice Hockey",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.White
-        )
-        Text(
-            text = "Scores first goal of game",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.White
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = "Jake Shane v. Harvard",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.White
+                )
+                Text(
+                    text = "03/24 | Men’s Ice Hockey",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.White
+                )
+                Text(
+                    text = "Scores first goal of game",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.White
+                )
+            }
+
+            Image(
+                painter = painterResource(id = R.drawable.player_photo),
+                contentDescription = "Player Photo",
+                modifier = Modifier
+                    .size(64.dp)
+                    .border(2.dp, Color.White)
+            )
+        }
+
 
         Spacer(Modifier.height(28.dp))
         SellContractPrice()

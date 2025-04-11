@@ -41,13 +41,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.appdev.all_in_android.R
 import com.appdev.all_in_android.ui.components.general.BetCard
 import com.appdev.all_in_android.ui.components.general.SellContractPrice
 import com.appdev.all_in_android.ui.theme.backgroundBlue
 
 @Composable
-fun StatScreen() {
+fun StatScreen(
+    nextScreen: () -> Unit,
+    navController: NavController
+) {
     var showChart by remember { mutableStateOf(false) }
     var price by remember { mutableStateOf("k") }
 
@@ -64,8 +68,9 @@ fun StatScreen() {
             contentDescription = "Back",
             modifier = Modifier
                 .size(24.dp)
-                .clickable { }
+                .clickable (onClick = { navController.popBackStack() })
         )
+
         Spacer(Modifier.height(40.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -108,7 +113,7 @@ fun StatScreen() {
         Spacer(Modifier.weight(1f))
         // Confirm Button
         Button(
-            onClick = {  },
+            onClick = { nextScreen() },
             enabled = price.isNotBlank(),
             modifier = Modifier
                 .fillMaxWidth()
@@ -364,8 +369,8 @@ fun SimpleBarChart() {
         )
     }
 }
-@Preview(showBackground = true)
-@Composable
-private fun BuyContractScreenPreview() {
-    StatScreen()
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun BuyContractScreenPreview() {
+//    StatScreen()
+//}

@@ -174,7 +174,7 @@ fun MarketplaceScreen(
                     )
                 }
                 items(allContracts) {
-                    ContractCard(it, onClick = {})
+                    ContractCard(it, onClick = {navController.navigate("Buy Contract")})
                 }
             }
         }

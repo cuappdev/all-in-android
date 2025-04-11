@@ -26,6 +26,7 @@ import com.appdev.all_in_android.data.repositories.homeFAQ
 import com.appdev.all_in_android.data.repositories.marketplaceFAQ
 import com.appdev.all_in_android.ui.screens.BetTrackerFAQScreen
 import com.appdev.all_in_android.ui.screens.BetTrackerScreen
+import com.appdev.all_in_android.ui.screens.BuyContractSuccessScreen
 import com.appdev.all_in_android.ui.screens.CartScreen
 import com.appdev.all_in_android.ui.screens.ContractSuccessScreen
 import com.appdev.all_in_android.ui.screens.HomeFAQScreen
@@ -34,6 +35,7 @@ import com.appdev.all_in_android.ui.screens.MarketplaceFAQScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceScreen
 import com.appdev.all_in_android.ui.screens.SellContractScreen
 import com.appdev.all_in_android.ui.screens.SellSelectedContractScreen
+import com.appdev.all_in_android.ui.screens.StatScreen
 import com.appdev.all_in_android.util.myFavoriteContract
 import kotlin.time.Duration.Companion.days
 
@@ -183,6 +185,14 @@ fun SetupNavHost(
             ContractSuccessScreen(
                 onReturnClick = {navController.navigate("Marketplace")}
             )
+        }
+
+        composable(Routes.BUY_CONTRACT.route){
+            StatScreen(nextScreen = {navController.navigate("Buy Success")}, navController)
+        }
+
+        composable(Routes.BUY_CONTRACT_SUCCESS.route){
+            BuyContractSuccessScreen(onReturnClick = {navController.navigate("Marketplace")})
         }
     }
 }

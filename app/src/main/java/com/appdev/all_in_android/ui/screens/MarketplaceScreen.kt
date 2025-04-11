@@ -120,7 +120,7 @@ fun MarketplaceScreen(
                     }
                 }
             }
-            item(span = { GridItemSpan(1) }) {
+            item(span = { GridItemSpan(2) }) {
                 Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                     Text(
                         text = "Contracts Ending Today",

@@ -25,6 +25,7 @@ import com.appdev.all_in_android.data.models.ContractRepo.players
 import com.appdev.all_in_android.ui.screens.BetTrackerFAQScreen
 import com.appdev.all_in_android.ui.screens.BetTrackerScreen
 import com.appdev.all_in_android.ui.screens.HomeScreen
+import com.appdev.all_in_android.ui.screens.MarketplaceFAQScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceScreen
 import com.appdev.all_in_android.util.myFavoriteContract
 import kotlin.time.Duration.Companion.days
@@ -118,10 +119,12 @@ fun SetupNavHost(
                 contractsEndingToday = List(3) {
                     myFavoriteContract
                 },
-                allContracts = List(10) { myFavoriteContract }
-
-
+                allContracts = List(10) { myFavoriteContract },
+                navController = navController
             )
+        }
+        composable(Routes.MARKETPLACE_FAQ.route){
+            MarketplaceFAQScreen(navBack = { navController.popBackStack() })
         }
         composable(Routes.BET_TRACKER.route) {
             BetTrackerScreen(

@@ -1,5 +1,6 @@
 package com.appdev.all_in_android.ui.navigation
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -21,10 +22,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.data.models.ContractRepo
+import com.appdev.all_in_android.data.models.ContractRepo.players
+import com.appdev.all_in_android.ui.screens.BetTrackerFAQScreen
+import com.appdev.all_in_android.ui.screens.BetTrackerScreen
 import com.appdev.all_in_android.ui.screens.HomeScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceScreen
 import com.appdev.all_in_android.ui.screens.ProfileScreen
+import kotlin.time.Duration.Companion.days
 
 @Composable
 fun NavigationSetup() {
@@ -47,10 +53,15 @@ fun NavigationSetup() {
         },
         containerColor = Color(0xFF15141B)
     ) { innerPadding ->
-        SetupNavHost(
-            navController = navController,
-            showBottomBar = showBottomBar
-        )
+        Box(
+            modifier = Modifier.padding(innerPadding)
+        ){
+            SetupNavHost(
+                navController = navController,
+                showBottomBar = showBottomBar
+            )
+        }
+
     }
 }
 
@@ -106,7 +117,20 @@ fun SetupNavHost(
             MarketplaceScreen(ContractRepo.players)
         }
         composable(Routes.BET_TRACKER.route) {
-            ProfileScreen()
+            BetTrackerScreen(
+                currentAmount = 1000.0,
+                totalProfit = 64.0,
+                ranking = 52,
+                contractsSold = 7 ,
+                ageOfAccount =  17.days,
+                recommendedContracts = players,
+            activeBets = players,
+            pastBets = players,
+                navController
+            )
+        }
+        composable(Routes.BET_TRACKER_FAQ.route){
+            BetTrackerFAQScreen({ navController.popBackStack() })
         }
     }
 }

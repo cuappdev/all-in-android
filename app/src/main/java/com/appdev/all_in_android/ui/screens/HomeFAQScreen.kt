@@ -7,14 +7,16 @@ import com.appdev.all_in_android.data.repositories.homeFAQ
 import com.appdev.all_in_android.ui.components.HelpScreenContent
 
 @Composable
-fun HomeFAQScreen() {
+fun HomeFAQScreen(
+    navBack: () -> Unit
+) {
     Column {
-        HelpScreenContent("How can we help?", "Frequently Asked Questions", homeFAQ)
+        HelpScreenContent("How can we help?", "Frequently Asked Questions", homeFAQ, navBack)
     }
 }
 
 @Preview
 @Composable
 private fun HomeFAQScreenPreview() {
-    HomeFAQScreen()
+    HomeFAQScreen({})
 }

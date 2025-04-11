@@ -83,7 +83,7 @@ fun CartScreen(
             ) {
                 items(homeContracts) {contract ->
                     //TODO: unhardcode
-                    HomeCartItem("Epic", contract.cost)
+                    HomeCartItem("Epic", 50)
                 }
             }
 
@@ -120,8 +120,8 @@ fun CartScreen(
                     MarketplaceCartItem(
                         contract.playerName,
                         contract.actionType,
-                        contract.cost,
-                        contract.gain
+                        contract.cost.toInt(),
+                        contract.gain.toInt()
                     )
                 }
             }

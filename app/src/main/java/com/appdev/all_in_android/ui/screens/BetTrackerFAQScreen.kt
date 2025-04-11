@@ -7,15 +7,17 @@ import com.appdev.all_in_android.data.repositories.betTrackerFAQ
 import com.appdev.all_in_android.ui.components.HelpScreenContent
 
 @Composable
-fun BetTrackerFAQScreen(){
+fun BetTrackerFAQScreen(
+    navBack: () -> Unit
+){
     Column{
-        HelpScreenContent("How can we help?", "Frequently Asked Questions", betTrackerFAQ)
+        HelpScreenContent("How can we help?", "Frequently Asked Questions", betTrackerFAQ, navBack)
     }
 }
 
 @Preview
 @Composable
 private fun BetTrackerFAQScreenPreview(){
-    BetTrackerFAQScreen()
+    BetTrackerFAQScreen({})
 }
 

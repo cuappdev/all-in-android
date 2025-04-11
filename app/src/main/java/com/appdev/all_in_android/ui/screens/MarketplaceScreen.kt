@@ -22,13 +22,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -47,7 +45,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -57,10 +54,8 @@ import com.appdev.all_in_android.ui.components.bet_tracker.ContractCard
 import com.appdev.all_in_android.ui.components.marketplace.FilterBottomSheet
 import com.appdev.all_in_android.ui.components.marketplace.WideContractCard
 import com.appdev.all_in_android.ui.navigation.Routes
-import com.appdev.all_in_android.ui.theme.AllinandroidTheme
 import com.appdev.all_in_android.ui.theme.fontFamily
 import com.appdev.all_in_android.ui.theme.gradientBrush
-import com.appdev.all_in_android.util.myFavoriteContract
 import com.appdev.all_in_android.util.toCurrency
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -71,7 +66,7 @@ fun MarketplaceScreen(
     recommendedContracts: List<Contract>,
     contractsEndingToday: List<Contract>,
     allContracts: List<Contract>,
-    navController: NavController?
+    navController: NavController
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     val scope = rememberCoroutineScope()

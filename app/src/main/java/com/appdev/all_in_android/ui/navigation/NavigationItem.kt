@@ -49,7 +49,11 @@ enum class Routes(override var route: String) : NavUnit {
     MARKETPLACE("Marketplace"),
     MARKETPLACE_FAQ("Marketplace FAQ"),
     BET_TRACKER("Bet Tracker"),
-    BET_TRACKER_FAQ("Bet Tracker FAQ")
+    BET_TRACKER_FAQ("Bet Tracker FAQ"),
+    SELL_CONTRACT("Sell Contract"),
+    SELL_SELECTED_CONTRACT("Sell Selected Contract"),
+    SELL_CONTRACT_CONFIRMATION("Sell Contract Confirmation"),
+    CONTRACT_SUCCESS("Contract Success")
 }
 
 

@@ -47,7 +47,8 @@ fun BetCard(
                 color = Color(0xFF201E2D),
                 shape = RoundedCornerShape(8.dp)
             )
-            .padding(16.dp),
+            .padding(16.dp)
+            .clickable(onClick = {onClick()}),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

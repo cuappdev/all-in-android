@@ -9,9 +9,11 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -51,9 +53,11 @@ fun FilterBottomSheet(
     onDismissRequest: () -> Unit,
     sheetState: SheetState
 ) {
-    ModalBottomSheet(
+    ModalBottomSheet (
+        modifier = Modifier.fillMaxHeight(),
         onDismissRequest = onDismissRequest, sheetState = sheetState,
-        containerColor = Background2
+        containerColor = Background2,
+        scrimColor = Color.Transparent
     ) {
         Row(
             modifier = Modifier
@@ -75,164 +79,175 @@ fun FilterBottomSheet(
                 .height(1.dp)
                 .background(brush = gradientBrush)
         )
-        Column(modifier = Modifier.padding(horizontal = 23.dp)) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 34.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Sort by",
-                    color = Color.White,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 19.sp,
-                    lineHeight = 19.sp
-                )
-                Row(verticalAlignment = Alignment.CenterVertically) {
+        LazyColumn(modifier = Modifier.padding(horizontal = 23.dp)) {
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 34.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Text(
-                        text = "Any",
+                        text = "Sort by",
                         color = Color.White,
-                        fontWeight = FontWeight.Normal,
+                        fontWeight = FontWeight.Medium,
                         fontSize = 19.sp,
                         lineHeight = 19.sp
                     )
-                    Button(
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                        onClick = {}) {
-                        Icon(
-                            painter = painterResource(R.drawable.baseline_keyboard_arrow_down_24),
-                            contentDescription = "down",
-                            tint = Color.White
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "Any",
+                            color = Color.White,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 19.sp,
+                            lineHeight = 19.sp
+                        )
+                        Button(
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
+                            onClick = {}) {
+                            Icon(
+                                painter = painterResource(R.drawable.baseline_keyboard_arrow_down_24),
+                                contentDescription = "down",
+                                tint = Color.White
+                            )
+                        }
+                        Box {
+                        }
+                    }
+                }
+            }
+            item {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(brush = gradientBrush)
+                )
+            }
+            item {
+                Text(
+                    text = "Price range",
+                    color = Color.White,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 19.sp,
+                    lineHeight = 19.sp, modifier = Modifier.padding(bottom = 15.dp, top = 23.dp)
+                )
+            }
+            item {
+                Text(
+                    text = "Any",
+                    color = Color.White,
+                    fontSize = 19.sp,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+            }
+            item {
+                RangeSliderExample()
+            }
+            item {
+                Text(
+                    text = "Payout range",
+                    color = Color.White,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 19.sp,
+                    lineHeight = 19.sp, modifier = Modifier.padding(bottom = 15.dp, top = 23.dp)
+                )
+                Text(
+                    text = "Any",
+                    color = Color.White,
+                    fontSize = 19.sp,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+                RangeSliderExample()
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(brush = gradientBrush)
+                )
+                Text(
+                    text = "Sport",
+                    color = Color.White,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 19.sp,
+                    lineHeight = 19.sp, modifier = Modifier.padding(bottom = 15.dp, top = 23.dp)
+                )
+                val selectedSports =
+                    remember { mutableStateListOf(false, false, false, false, false, false, false) }
+                val sports = listOf(
+                    "Basketball",
+                    "Hockey",
+                    "Baseball",
+                    "Swim",
+                    "Volleyball",
+                    "Track & Field",
+                    "Tennis"
+                )
+                FlowRow {
+                    for (i in 1..7) {
+                        ChipItem(
+                            text = sports[i - 1],
+                            onClick = { selectedSports[i - 1] = !selectedSports[i - 1] },
+                            selected = selectedSports[i - 1]
                         )
                     }
-                    Box {
+                }
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(brush = gradientBrush)
+                )
+                Text(
+                    text = "Rarity Level",
+                    color = Color.White,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 19.sp,
+                    lineHeight = 19.sp, modifier = Modifier.padding(bottom = 15.dp, top = 23.dp)
+                )
+
+                val selectedRarity =
+                    remember { mutableStateListOf(false, false, false, false) }
+                val rarities = listOf(
+                    "Common", "Epic", "Rare", "Legendary"
+                )
+                FlowRow {
+                    for (i in 1..4) {
+                        ChipItem(
+                            text = rarities[i - 1],
+                            onClick = { selectedRarity[i - 1] = !selectedRarity[i - 1] },
+                            selected = selectedRarity[i - 1]
+                        )
                     }
                 }
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(brush = gradientBrush)
-            )
-//            Box(modifier = Modifier.fillMaxWidth().height(10.dp).background(brush=gradientBrush))
-            Text(
-                text = "Price range",
-                color = Color.White,
-                fontWeight = FontWeight.Medium,
-                fontSize = 19.sp,
-                lineHeight = 19.sp, modifier = Modifier.padding(bottom = 15.dp, top = 23.dp)
-            )
-            Text(
-                text = "Any",
-                color = Color.White,
-                fontSize = 19.sp,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-            RangeSliderExample()
-            Text(
-                text = "Payout range",
-                color = Color.White,
-                fontWeight = FontWeight.Medium,
-                fontSize = 19.sp,
-                lineHeight = 19.sp, modifier = Modifier.padding(bottom = 15.dp, top = 23.dp)
-            )
-            Text(
-                text = "Any",
-                color = Color.White,
-                fontSize = 19.sp,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-            RangeSliderExample()
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(brush = gradientBrush)
-            )
-            Text(
-                text = "Sport",
-                color = Color.White,
-                fontWeight = FontWeight.Medium,
-                fontSize = 19.sp,
-                lineHeight = 19.sp, modifier = Modifier.padding(bottom = 15.dp, top = 23.dp)
-            )
-            val selectedSports =
-                remember { mutableStateListOf(false, false, false, false, false, false, false) }
-            val sports = listOf(
-                "Basketball",
-                "Hockey",
-                "Baseball",
-                "Swim",
-                "Volleyball",
-                "Track & Field",
-                "Tennis"
-            )
-            FlowRow {
-                for (i in 1..7) {
-                    ChipItem(
-                        text = sports[i - 1],
-                        onClick = { selectedSports[i - 1] = !selectedSports[i - 1] },
-                        selected = selectedSports[i - 1]
-                    )
-                }
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(brush = gradientBrush)
-            )
-            Text(
-                text = "Rarity Level",
-                color = Color.White,
-                fontWeight = FontWeight.Medium,
-                fontSize = 19.sp,
-                lineHeight = 19.sp, modifier = Modifier.padding(bottom = 15.dp, top = 23.dp)
-            )
-
-            val selectedRarity =
-                remember { mutableStateListOf(false, false, false, false) }
-            val rarities = listOf(
-                "Common", "Epic", "Rare", "Legendary"
-            )
-            FlowRow {
-                for (i in 1..4) {
-                    ChipItem(
-                        text = rarities[i - 1],
-                        onClick = { selectedRarity[i - 1] = !selectedRarity[i - 1] },
-                        selected = selectedRarity[i - 1]
-                    )
-                }
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 5.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Reset",
-                    color = Color.White,
-                    fontSize = 17.sp,
-                    fontWeight = FontWeight.Medium,
-                    lineHeight = 17.sp
-                )
-                Button(onClick = {}) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 5.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
                     Text(
-                        "Apply Filters",
+                        text = "Reset",
+                        color = Color.White,
                         fontSize = 17.sp,
                         fontWeight = FontWeight.Medium,
-                        color = Color.White
+                        lineHeight = 17.sp
                     )
+                    Button(onClick = {}) {
+                        Text(
+                            "Apply Filters",
+                            fontSize = 17.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color.White
+                        )
+                    }
                 }
+
             }
-
         }
-    }
 
+    }
 }
 
 @Composable

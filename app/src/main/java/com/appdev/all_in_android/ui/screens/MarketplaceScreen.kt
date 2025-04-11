@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,19 +22,20 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,12 +51,14 @@ import androidx.navigation.NavController
 import com.appdev.all_in_android.R
 import com.appdev.all_in_android.data.models.Contract
 import com.appdev.all_in_android.ui.components.bet_tracker.ContractCard
+import com.appdev.all_in_android.ui.components.marketplace.FilterBottomSheet
 import com.appdev.all_in_android.ui.components.marketplace.WideContractCard
 import com.appdev.all_in_android.ui.navigation.Routes
 import com.appdev.all_in_android.ui.theme.fontFamily
 import com.appdev.all_in_android.ui.theme.gradientBrush
 import com.appdev.all_in_android.util.toCurrency
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MarketplaceScreen(
     modifier: Modifier = Modifier,
@@ -64,143 +68,158 @@ fun MarketplaceScreen(
     allContracts: List<Contract>,
     navController: NavController
 ) {
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
+    val scope = rememberCoroutineScope()
+    var showBottomSheet by remember { mutableStateOf(false) }
+    Column() {
+
+        Box(
+            modifier = Modifier.fillMaxSize()
         ) {
-            Header(
-                navController
-            )
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                verticalArrangement = Arrangement.spacedBy(24.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            Column(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
-                item(span = { GridItemSpan(2) }) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.End
-                    ) {
+                Header(
+                    navController
+                )
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    verticalArrangement = Arrangement.spacedBy(24.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    item(span = { GridItemSpan(2) }) {
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(7.dp)
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.End
                         ) {
-                            Image(
-                                painter = painterResource(R.drawable.currency),
-                                contentDescription = "currency",
-                            )
-                            Text(
-                                text = toCurrency(currentAmount),
-                                color = Color.White,
-                                fontWeight = FontWeight.Medium
-                            )
-                        }
-                    }
-                }
-                item(span = { GridItemSpan(2) }) {
-                    var query by remember { mutableStateOf("") }
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        SearchBar(
-                            query = query,
-                            onQueryChanged = { query = it },
-                        )
-                        Icon(
-                            painter = painterResource(R.drawable.filter),
-                            contentDescription = "Filter Icon",
-                            tint = Color.White
-                        )
-                    }
-                }
-                item(span = { GridItemSpan(2) }) {
-                    Text(
-                        text = "Your Recommended Contracts",
-                        fontSize = 16.sp,
-                        lineHeight = 16.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = Color.White
-                    )
-                }
-                item(span = { GridItemSpan(2) }) {
-                    LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                        items(recommendedContracts) {
-                            ContractCard(it, onClick = {
-                                navController.navigate("Buy Contract")
-                            })
-                        }
-                    }
-                }
-                item(span = { GridItemSpan(2) }) {
-                    Box(
-                        modifier = Modifier.clickable(onClick = { navController.navigate("Ending Today") })
-                    ){
-                        Row(horizontalArrangement = Arrangement.spacedBy(5.dp),) {
-                            Text(
-                                text = "Contracts Ending Today",
-                                fontSize = 16.sp,
-                                lineHeight = 16.sp,
-                                fontWeight = FontWeight.Medium,
-                                style = TextStyle(
-                                    brush = gradientBrush,
-                                    fontFamily = fontFamily
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(7.dp)
+                            ) {
+                                Image(
+                                    painter = painterResource(R.drawable.currency),
+                                    contentDescription = "currency",
                                 )
+                                Text(
+                                    text = toCurrency(currentAmount),
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Medium
+                                )
+
+                            }
+                        }
+                    }
+                    item(span = { GridItemSpan(2) }) {
+                        var query by remember { mutableStateOf("") }
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            SearchBar(
+                                query = query,
+                                onQueryChanged = { query = it },
                             )
                             Icon(
-                                painter = painterResource(R.drawable.baseline_chevron_right_24),
-                                contentDescription = "chevron",
-                                modifier = Modifier.drawWithCache {
-                                    onDrawWithContent {
-                                        drawContent()
-                                        drawRect(gradientBrush, blendMode = BlendMode.SrcAtop)
-                                    }
-                                }
+                                painter = painterResource(R.drawable.filter),
+                                contentDescription = "Filter Icon",
+                                tint = Color.White
                             )
                         }
                     }
-
-                }
-                item(span = { GridItemSpan(2) }) {
-                    LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                        items(contractsEndingToday) {
-                            WideContractCard(it, onClick = { navController.navigate("Buy Contract") })
+                    item(span = { GridItemSpan(2) }) {
+                        Text(
+                            text = "Your Recommended Contracts",
+                            fontSize = 16.sp,
+                            lineHeight = 16.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color.White
+                        )
+                    }
+                    item(span = { GridItemSpan(2) }) {
+                        LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                            items(recommendedContracts) {
+                                ContractCard(it, onClick = {})
+                            }
                         }
                     }
-                }
-                item(span = { GridItemSpan(2) }) {
-                    Text(
-                        text = "All Contracts",
-                        color = Color.White,
-                        fontWeight = FontWeight.Medium,
-                    )
-                }
-                items(allContracts) {
-                    ContractCard(it, onClick = {navController.navigate("Buy Contract")})
+                    item(span = { GridItemSpan(2) }) {
+                        Box(
+                            modifier = Modifier.clickable(onClick = { navController.navigate("Ending Today") })
+                        ) {
+                            Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                                Text(
+                                    text = "Contracts Ending Today",
+                                    fontSize = 16.sp,
+                                    lineHeight = 16.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    style = TextStyle(
+                                        brush = gradientBrush,
+                                        fontFamily = fontFamily
+                                    )
+                                )
+                                Icon(
+                                    painter = painterResource(R.drawable.baseline_chevron_right_24),
+                                    contentDescription = "chevron",
+                                    modifier = Modifier.drawWithCache {
+                                        onDrawWithContent {
+                                            drawContent()
+                                            drawRect(
+                                                gradientBrush,
+                                                blendMode = BlendMode.SrcAtop
+                                            )
+                                        }
+                                    }
+                                )
+                            }
+                        }
+                    }
+                    item(span = { GridItemSpan(2) }) {
+                        LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                            items(contractsEndingToday) {
+                                WideContractCard(it)
+                            }
+                        }
+                    }
+                    item(span = { GridItemSpan(2) }) {
+                        Text(
+                            text = "All Contracts",
+                            color = Color.White,
+                            fontWeight = FontWeight.Medium,
+                        )
+                    }
+                    items(allContracts) {
+                        ContractCard(it, onClick = {})
+                    }
                 }
             }
-        }
-        FloatingActionButton(
-            onClick = { navController.navigate("Sell Contract") },
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(24.dp)
-                .size(80.dp),
-            containerColor = Color(0xff1F70C7), // Customize as needed
-            contentColor = Color.White,
-            shape = CircleShape
-        ) {
-            Icon(
-                painter = painterResource(R.drawable.ic_cart_button),
-                contentDescription = "Add Contract",
-                tint = Color.Unspecified,
-                modifier = Modifier.size(60.dp) // scale icon inside the circle
-            )
+            if (showBottomSheet) {
+                FilterBottomSheet(
+
+                    padding = PaddingValues(0.dp),
+                    onDismissRequest = { showBottomSheet = false },
+                    sheetState = sheetState,
+                )
+            }
+            FloatingActionButton(
+                onClick = { navController.navigate("Sell Contract") },
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(24.dp)
+                    .size(80.dp),
+                containerColor = Color(0xff1F70C7), // Customize as needed
+                contentColor = Color.White,
+                shape = CircleShape
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_cart_button),
+                    contentDescription = "Add Contract",
+                    tint = Color.Unspecified,
+                    modifier = Modifier.size(60.dp) // scale icon inside the circle
+                )
+            }
         }
     }
 }
@@ -273,7 +292,10 @@ private fun Header(
             .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Text(
                 text = "Marketplace",
                 fontSize = 24.sp,

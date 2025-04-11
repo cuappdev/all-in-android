@@ -67,9 +67,11 @@ fun EndingTodayScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(contracts) { contract ->
-                WideContractCard(
-                    contract
-                )
+                Box(
+                    modifier = Modifier.clickable(onClick = {navController.navigate("Buy Contract")})
+                ){
+                    WideContractCard(contract)
+                }
             }
         }
 

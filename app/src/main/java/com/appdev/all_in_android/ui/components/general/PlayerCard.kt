@@ -1,5 +1,6 @@
 package com.appdev.all_in_android.ui.components.general
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,11 +16,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import com.appdev.all_in_android.R
 import com.appdev.all_in_android.ui.theme.gradientBorder
 
 /**
@@ -30,13 +33,12 @@ fun PlayerCard(
     playerName: String,
     playerNumber: Int,
     playerPosition: String,
-    playerImageUrl: String,
+    playerImageUrl: String = "",
     onClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
             .width(103.dp)
-            .height(131.dp)
             .gradientBorder()
             .background(
                 color = Color(0xFF201E2D),
@@ -49,12 +51,17 @@ fun PlayerCard(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        AsyncImage(
-            model = playerImageUrl,
-            contentDescription = "player image",
-            modifier = Modifier
-                .size(50.dp)
-                .border(1.dp, Color.White)
+//        AsyncImage(
+//            model = playerImageUrl,
+//            contentDescription = "player image",
+//            modifier = Modifier
+//                .size(50.dp)
+//                .border(1.dp, Color.White)
+//        )
+        Image(
+            painter = painterResource(R.drawable.player_photo),
+            contentDescription = "player photo",
+            modifier = Modifier.size(50.dp)
         )
         Text(
             text = playerName,

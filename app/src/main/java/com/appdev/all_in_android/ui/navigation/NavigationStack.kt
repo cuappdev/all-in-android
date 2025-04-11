@@ -22,11 +22,18 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.appdev.all_in_android.data.models.ContractRepo.players
+import com.appdev.all_in_android.data.repositories.homeFAQ
+import com.appdev.all_in_android.data.repositories.marketplaceFAQ
 import com.appdev.all_in_android.ui.screens.BetTrackerFAQScreen
 import com.appdev.all_in_android.ui.screens.BetTrackerScreen
+import com.appdev.all_in_android.ui.screens.CartScreen
+import com.appdev.all_in_android.ui.screens.ContractSuccessScreen
+import com.appdev.all_in_android.ui.screens.HomeFAQScreen
 import com.appdev.all_in_android.ui.screens.HomeScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceFAQScreen
 import com.appdev.all_in_android.ui.screens.MarketplaceScreen
+import com.appdev.all_in_android.ui.screens.SellContractScreen
+import com.appdev.all_in_android.ui.screens.SellSelectedContractScreen
 import com.appdev.all_in_android.util.myFavoriteContract
 import kotlin.time.Duration.Companion.days
 
@@ -108,7 +115,13 @@ fun SetupNavHost(
         startDestination = Routes.HOME.route
     ) {
         composable(Routes.HOME.route) {
-            HomeScreen()
+            HomeScreen(
+                navController = navController
+                //toCart = {navController.navigate("Cart")}
+            )
+        }
+        composable(Routes.HOME_FAQ.route){
+            HomeFAQScreen(navBack = {navController.popBackStack()})
         }
         composable(Routes.MARKETPLACE.route) {
             MarketplaceScreen(
@@ -139,8 +152,37 @@ fun SetupNavHost(
                 navController = navController
             )
         }
+        composable(Routes.CART.route){
+            CartScreen(wealth = 1000, homeContracts = players, marketplaceContracts = players, navController = navController)
+        }
+        //navBack = {navController.popBackStack()}
         composable(Routes.BET_TRACKER_FAQ.route){
             BetTrackerFAQScreen(navBack = { navController.popBackStack() })
+        }
+
+
+        composable(Routes.SELL_CONTRACT.route){
+            SellContractScreen(
+                onBackClick = {navController.popBackStack()},
+                toSellSelected = {navController.navigate("Sell Selected Contract")}
+            )
+        }
+        composable(Routes.SELL_SELECTED_CONTRACT.route){
+            SellSelectedContractScreen(
+                onBackClick = {navController.popBackStack()},
+                onConfirmClick = {navController.navigate("Sell Contract Confirmation")}
+            )
+        }
+        composable(Routes.SELL_CONTRACT_CONFIRMATION.route){
+            SellSelectedContractScreen(
+                onBackClick = {navController.popBackStack()},
+                onConfirmClick = {navController.navigate("Contract Success")}
+            )
+        }
+        composable(Routes.CONTRACT_SUCCESS.route){
+            ContractSuccessScreen(
+                onReturnClick = {navController.navigate("Marketplace")}
+            )
         }
     }
 }

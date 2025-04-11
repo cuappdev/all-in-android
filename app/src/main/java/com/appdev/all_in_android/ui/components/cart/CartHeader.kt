@@ -1,8 +1,10 @@
 package com.appdev.all_in_android.ui.components.cart
 
-import androidx.compose.foundation.Image
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,13 +26,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.appdev.all_in_android.R
 import com.appdev.all_in_android.ui.theme.backgroundBlue
 import com.appdev.all_in_android.ui.theme.gradientBrush
 
 @Composable
 fun CardHeader(
-    wealth: Int
+    wealth: Int,
+    //navBack: () -> Unit
+    navController: NavController
 ) {
     val cartTotal = 100
     val winAmt = 1540
@@ -52,11 +57,17 @@ fun CardHeader(
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
-            Icon(
-                painter = painterResource(R.drawable.ic_white_x_close),
-                contentDescription = "x-close",
-                tint = Color.Unspecified
-            )
+            Box(
+                modifier = Modifier
+                    .clickable(onClick = { navController.popBackStack()}),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_white_x_close),
+                    contentDescription = "x-close",
+                    tint = Color.Unspecified
+                )
+            }
         }
         Spacer(modifier = Modifier.height(10.dp))
         Row(
@@ -81,7 +92,9 @@ fun CardHeader(
 fun CartTotal(
     homeBetsTotal: Int,
     marketplaceBetsTotal: Int,
-    potentialWinnings: Int
+    potentialWinnings: Int,
+    //navBack: () -> Unit
+    navController: NavController
 ) {
     Column(
         modifier = Modifier
@@ -113,13 +126,17 @@ fun CartTotal(
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
-                //.padding(24.dp),
+            //.padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                modifier = Modifier.background(brush = gradientBrush, shape = RoundedCornerShape(12.dp))
+                modifier = Modifier
+                    .background(
+                        brush = gradientBrush,
+                        shape = RoundedCornerShape(12.dp)
+                    )
                     .fillMaxWidth(),
-                onClick = {},
+                onClick = {navController.popBackStack()},
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
             ) {
                 Text("Confirm to spend $${homeBetsTotal + marketplaceBetsTotal}")
@@ -130,14 +147,13 @@ fun CartTotal(
 }
 
 
-
 @Preview
 @Composable
 fun PreviewCardHeader() {
     Column(
         modifier = Modifier.background(color = backgroundBlue)
     ) {
-        CardHeader(1000)
+//        CardHeader(1000, {})
         //CartTotal(80, 190, 160)
     }
 }

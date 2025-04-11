@@ -1,5 +1,6 @@
 package com.appdev.all_in_android.ui.screens
 
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,9 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -27,21 +26,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appdev.all_in_android.R
+import com.appdev.all_in_android.data.models.Contract
+import com.appdev.all_in_android.ui.components.bet_tracker.ContractCard
 import com.appdev.all_in_android.ui.components.general.BetCard
 
 @Composable
-fun ContractSuccessScreen(
+fun BuyContractSuccessScreen(
     onReturnClick: () -> Unit = {}
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF0D0C1E)) // dark background
+            .background(Color(0xFF0D0C1E))
             .padding(24.dp)
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
+            modifier = Modifier.fillMaxSize()
         ) {
             Spacer(Modifier.height(24.dp))
 
@@ -60,7 +61,7 @@ fun ContractSuccessScreen(
             Spacer(modifier = Modifier.height(48.dp))
 
             Text(
-                text = "Amazing! Your contract is on the marketplace.",
+                text = "Congratulations! You have purchased a contract.",
                 color = Color.White,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
@@ -73,9 +74,19 @@ fun ContractSuccessScreen(
 
             // Contract Card
 
-            BetCard(
-                title = "Jake Shane v. Harvard", date = "3/24", sport = "Men's Ice Hockey", bettingLine = "Scores First Goal of Game",
-                cost = 20.0, gain = 40.0, onClick = { /*TODO*/ },
+            ContractCard(
+                Contract(
+                    id = "0",
+                    playerName = "Chris Manon",
+                    playerImageId = R.drawable.player_photo,
+                    opposingTeam = "UPenn",
+                    dateOfGame = "03/24",
+                    actionType = "Rebounds",
+                    actionQuantity = 4,
+                    cost = 1220.0,
+                    gain = 3240.0,
+                    sport = "Men's Basketball"
+                ), onClick = {}
             )
 
             Spacer(modifier = Modifier.height(48.dp))
@@ -107,6 +118,6 @@ fun ContractSuccessScreen(
 
 @Preview(showBackground = true)
 @Composable
-private fun ContractSuccessScreenPreview() {
-    ContractSuccessScreen()
+private fun BuyContractSuccessScreenPreview() {
+    BuyContractSuccessScreen()
 }

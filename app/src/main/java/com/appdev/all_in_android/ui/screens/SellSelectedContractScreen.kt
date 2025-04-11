@@ -2,6 +2,7 @@ package com.appdev.all_in_android.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,9 +15,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
@@ -51,7 +54,7 @@ fun SellSelectedContractScreen(
         modifier = Modifier
             .background(backgroundBlue)
             .fillMaxSize()
-            .padding(24.dp)
+            .padding(24.dp).verticalScroll(rememberScrollState())
     ) {
 
         // Back Arrow
@@ -63,24 +66,42 @@ fun SellSelectedContractScreen(
                 .clickable { onBackClick() }
         )
         Spacer(Modifier.height(40.dp))
-        Text(
-            text = "Jake Shane v. Harvard",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.White
-        )
-        Text(
-            text = "03/24 | Men’s Ice Hockey",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.White
-        )
-        Text(
-            text = "Scores first goal of game",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.White
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = "Jake Shane v. Harvard",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.White
+                )
+                Text(
+                    text = "03/24 | Men’s Ice Hockey",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.White
+                )
+                Text(
+                    text = "Scores first goal of game",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.White
+                )
+            }
+
+            Image(
+                painter = painterResource(id = R.drawable.player_photo),
+                contentDescription = "Player Photo",
+                modifier = Modifier
+                    .size(64.dp)
+                    .border(2.dp, Color.White)
+            )
+        }
+
 
         Spacer(Modifier.height(28.dp))
         SellContractPrice()

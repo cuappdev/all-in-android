@@ -1,5 +1,6 @@
 package com.appdev.all_in_android.ui.components.general
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -18,11 +19,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import com.appdev.all_in_android.R
 import com.appdev.all_in_android.ui.theme.gradientBorder
 
 @Composable
@@ -36,9 +39,6 @@ fun BetCard(
     playerImageUrl: String = "",
     onClick: () -> Unit = {}
 ){
-    val gradientBrush = Brush.linearGradient(
-        colors = listOf(Color(0xFF1F70C7), Color(0xFF7DF3FE), Color(0xFF887DFE), Color(0xFF7D97FE))
-    )
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -47,18 +47,20 @@ fun BetCard(
                 color = Color(0xFF201E2D),
                 shape = RoundedCornerShape(8.dp)
             )
-            .padding(16.dp),
+            .padding(16.dp)
+            .clickable(onClick = {onClick()}),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Row() {
-            AsyncImage(
-                model = playerImageUrl,
-                contentDescription = "player image",
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(R.drawable.player_photo),
+                contentDescription = "player photo",
                 modifier = Modifier
                     .width(37.dp)
                     .height(47.dp)
-                    .border(1.dp, Color.White)
             )
             Spacer(Modifier.width(16.dp))
             BetCardInfoBody(title, date, sport, bettingLine)
